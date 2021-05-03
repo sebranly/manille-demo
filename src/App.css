@@ -1,9 +1,64 @@
+body {
+  background-color: goldenrod !important;
+}
+
 .main {
   text-align: center;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom: 30px;
-  margin-top: 30px;
   font-family: "Merriweather";
   font-size: 25px;
+}
+
+.container {
+  display: flex;
+}
+
+.demo-card {
+  margin: 1%;
+  padding: 0.5%;
+  max-width: 10%;
+}
+
+.flex-one {
+  flex: 1;
+}
+
+.flex-two {
+  flex: 2;
+}
+
+.flex-three {
+  flex: 3;
+}
+
+.demo-cards {
+  border: 1px solid transparent;
+}
+
+.demo-card-player-one {
+  border-top: 3px solid blue;
+}
+
+.demo-card-player-two {
+  border-right: 3px solid red;
+}
+
+.demo-card-player-three {
+  border-bottom: 3px solid green;
+}
+
+.demo-card-player-four {
+  border-left: 3px solid yellow;
+}
+
+.demo-card-used {
+  filter: invert(25%);
+}
+
+.table {
+  min-height: 100px;
+  min-width: 10px;
+  border-top: 3px solid blue;
+  border-right: 3px solid red;
+  border-bottom: 3px solid green;
+  border-left: 3px solid yellow;
 }
