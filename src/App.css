@@ -17,6 +17,17 @@ body {
 .demo-card {
   margin: 1%;
   padding: 0.5%;
+}
+
+.width-two-cards {
+  max-width: 40%;
+}
+
+.width-four-cards {
+  max-width: 20%;
+}
+
+.width-eight-cards {
   max-width: 10%;
 }
 
@@ -58,6 +69,7 @@ body {
 
 .demo-table {
   min-height: 100px;
+  min-width: 10px;
   margin: 2%;
   border-top: 3px solid blue;
   border-right: 3px solid red;
