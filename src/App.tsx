@@ -236,7 +236,7 @@ const App = () => {
               </div>
             </div>
           </div>
-          <div className="flex-one demo-cards">
+          <div className="flex-two demo-cards">
             <h2>All cards</h2>
             <div className="demo-cards">
               <img className="demo-card" src={TenClubs} alt="React Logo" />
