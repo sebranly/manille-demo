@@ -79,12 +79,165 @@ const App = () => {
         <link rel="canonical" href="https://sebranly.github.io/manille-demo" />
       </Helmet>
       <div className="main">
-        <div>Bonsoir encore</div>
-        <div className="container">
-          <div className="flex-one">
-            <div className="table"></div>
+        <h1>Manille</h1>
+        <div className="demo-container">
+          <div className="flex-three">
+            <h2>Table</h2>
+
+            <div className="demo-container">
+              <div className="demo-player-left flex-one">
+                <div className="demo-cards">
+                  <img className="demo-card" src={TenSpades} alt="React Logo" />
+                  <img className="demo-card" src={AceClubs} alt="React Logo" />
+                </div>
+                <div className="demo-cards">
+                  <img className="demo-card" src={KingClubs} alt="React Logo" />
+                  <img
+                    className="demo-card"
+                    src={QueenClubs}
+                    alt="React Logo"
+                  />
+                </div>
+                <div className="demo-cards">
+                  <img className="demo-card" src={TenSpades} alt="React Logo" />
+                  <img className="demo-card" src={AceClubs} alt="React Logo" />
+                </div>
+                <div className="demo-cards">
+                  <img className="demo-card" src={KingClubs} alt="React Logo" />
+                  <img
+                    className="demo-card"
+                    src={QueenClubs}
+                    alt="React Logo"
+                  />
+                </div>
+              </div>
+
+              <div className="flex-one">
+                <div className="demo-player-top">
+                  <div className="demo-cards">
+                    <img
+                      className="demo-card"
+                      src={TenClubs}
+                      alt="React Logo"
+                    />
+                    <img
+                      className="demo-card"
+                      src={AceClubs}
+                      alt="React Logo"
+                    />
+                    <img
+                      className="demo-card"
+                      src={KingClubs}
+                      alt="React Logo"
+                    />
+                    <img
+                      className="demo-card"
+                      src={QueenClubs}
+                      alt="React Logo"
+                    />
+                  </div>
+                  <div className="demo-cards">
+                    <img
+                      className="demo-card"
+                      src={JackClubs}
+                      alt="React Logo"
+                    />
+                    <img
+                      className="demo-card"
+                      src={NineClubs}
+                      alt="React Logo"
+                    />
+                    <img
+                      className="demo-card"
+                      src={EightClubs}
+                      alt="React Logo"
+                    />
+                    <img
+                      className="demo-card"
+                      src={SevenClubs}
+                      alt="React Logo"
+                    />
+                  </div>
+                </div>
+                <div className="demo-table"></div>
+                <div className="demo-player-bottom">
+                  <div className="demo-cards">
+                    <img
+                      className="demo-card"
+                      src={TenClubs}
+                      alt="React Logo"
+                    />
+                    <img
+                      className="demo-card"
+                      src={AceClubs}
+                      alt="React Logo"
+                    />
+                    <img
+                      className="demo-card"
+                      src={KingClubs}
+                      alt="React Logo"
+                    />
+                    <img
+                      className="demo-card"
+                      src={QueenClubs}
+                      alt="React Logo"
+                    />
+                  </div>
+                  <div className="demo-cards">
+                    <img
+                      className="demo-card"
+                      src={JackClubs}
+                      alt="React Logo"
+                    />
+                    <img
+                      className="demo-card"
+                      src={NineClubs}
+                      alt="React Logo"
+                    />
+                    <img
+                      className="demo-card"
+                      src={EightClubs}
+                      alt="React Logo"
+                    />
+                    <img
+                      className="demo-card"
+                      src={SevenClubs}
+                      alt="React Logo"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="demo-player-right flex-one">
+                <div className="demo-cards">
+                  <img className="demo-card" src={TenSpades} alt="React Logo" />
+                  <img className="demo-card" src={AceClubs} alt="React Logo" />
+                </div>
+                <div className="demo-cards">
+                  <img className="demo-card" src={KingClubs} alt="React Logo" />
+                  <img
+                    className="demo-card"
+                    src={QueenClubs}
+                    alt="React Logo"
+                  />
+                </div>
+                <div className="demo-cards">
+                  <img className="demo-card" src={TenSpades} alt="React Logo" />
+                  <img className="demo-card" src={AceClubs} alt="React Logo" />
+                </div>
+                <div className="demo-cards">
+                  <img className="demo-card" src={KingClubs} alt="React Logo" />
+                  <img
+                    className="demo-card"
+                    src={QueenClubs}
+                    alt="React Logo"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
           <div className="flex-one demo-cards">
+            <h2>All cards</h2>
             <div className="demo-cards">
               <img className="demo-card" src={TenClubs} alt="React Logo" />
               <img className="demo-card" src={AceClubs} alt="React Logo" />
@@ -98,12 +251,12 @@ const App = () => {
             <div className="demo-cards">
               <img className="demo-card" src={TenDiamonds} alt="React Logo" />
               <img
-                className="demo-card demo-card-player-one"
+                className="demo-card demo-card-player-top"
                 src={AceDiamonds}
                 alt="React Logo"
               />
               <img
-                className="demo-card demo-card-player-two demo-card-player-one"
+                className="demo-card demo-card-player-top demo-card-player-right demo-card-player-bottom demo-card-player-left"
                 src={KingDiamonds}
                 alt="React Logo"
               />

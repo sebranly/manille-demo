@@ -1,5 +1,7 @@
 body {
   background-color: goldenrod !important;
+  margin: 0px !important;
+  padding: 0px !important;
 }
 
 .main {
@@ -8,7 +10,7 @@ body {
   font-size: 25px;
 }
 
-.container {
+.demo-container {
   display: flex;
 }
 
@@ -34,19 +36,19 @@ body {
   border: 1px solid transparent;
 }
 
-.demo-card-player-one {
+.demo-card-player-top {
   border-top: 3px solid blue;
 }
 
-.demo-card-player-two {
+.demo-card-player-right {
   border-right: 3px solid red;
 }
 
-.demo-card-player-three {
+.demo-card-player-bottom {
   border-bottom: 3px solid green;
 }
 
-.demo-card-player-four {
+.demo-card-player-left {
   border-left: 3px solid yellow;
 }
 
@@ -54,9 +56,9 @@ body {
   filter: invert(25%);
 }
 
-.table {
+.demo-table {
   min-height: 100px;
-  min-width: 10px;
+  margin: 2%;
   border-top: 3px solid blue;
   border-right: 3px solid red;
   border-bottom: 3px solid green;
