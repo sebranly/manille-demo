@@ -42,7 +42,7 @@ const App = () => {
         <title>Manille Demo</title>
         <link rel="canonical" href="https://sebranly.github.io/manille-demo" />
       </Helmet>
-      <div>Bonsoir</div>
+      <div>Bonsoir encore</div>
     </HelmetProvider>
   );
 };
