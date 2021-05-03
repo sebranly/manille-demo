@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3d0889a63aee48862b0c26dc750773cc",
+    "revision": "cee9db0c0595c83f90c1e9eefbb3c7f6",
     "url": "/manille-demo/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/manille-demo/static/css/2.9233ae65.chunk.css"
   },
   {
-    "revision": "714aa48f027bc9ce3766",
+    "revision": "f0a9d65daabf102a345b",
     "url": "/manille-demo/static/css/main.f85e4518.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/manille-demo/static/js/2.0d65321a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "714aa48f027bc9ce3766",
-    "url": "/manille-demo/static/js/main.9145738d.chunk.js"
+    "revision": "f0a9d65daabf102a345b",
+    "url": "/manille-demo/static/js/main.20d00f86.chunk.js"
   },
   {
     "revision": "50e3a3071fcf1603afca",
