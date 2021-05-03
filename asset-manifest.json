@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/manille-demo/static/css/main.f85e4518.chunk.css",
-    "main.js": "/manille-demo/static/js/main.1692ac4d.chunk.js",
-    "main.js.map": "/manille-demo/static/js/main.1692ac4d.chunk.js.map",
+    "main.js": "/manille-demo/static/js/main.9145738d.chunk.js",
+    "main.js.map": "/manille-demo/static/js/main.9145738d.chunk.js.map",
     "runtime-main.js": "/manille-demo/static/js/runtime-main.2bb4be0e.js",
     "runtime-main.js.map": "/manille-demo/static/js/runtime-main.2bb4be0e.js.map",
     "static/css/2.9233ae65.chunk.css": "/manille-demo/static/css/2.9233ae65.chunk.css",
     "static/js/2.0d65321a.chunk.js": "/manille-demo/static/js/2.0d65321a.chunk.js",
     "static/js/2.0d65321a.chunk.js.map": "/manille-demo/static/js/2.0d65321a.chunk.js.map",
     "index.html": "/manille-demo/index.html",
-    "precache-manifest.80fe7f8301eb9323dedf16356281edc9.js": "/manille-demo/precache-manifest.80fe7f8301eb9323dedf16356281edc9.js",
+    "precache-manifest.2462762e9de0e6a5056562675550f35b.js": "/manille-demo/precache-manifest.2462762e9de0e6a5056562675550f35b.js",
     "service-worker.js": "/manille-demo/service-worker.js",
     "static/css/2.9233ae65.chunk.css.map": "/manille-demo/static/css/2.9233ae65.chunk.css.map",
     "static/css/main.f85e4518.chunk.css.map": "/manille-demo/static/css/main.f85e4518.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.9233ae65.chunk.css",
     "static/js/2.0d65321a.chunk.js",
     "static/css/main.f85e4518.chunk.css",
-    "static/js/main.1692ac4d.chunk.js"
+    "static/js/main.9145738d.chunk.js"
   ]
 }
