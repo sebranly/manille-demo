@@ -82,7 +82,7 @@ const App = () => {
         <h1>Manille</h1>
         <div className="demo-container">
           <div className="flex-three">
-            <div className="demo-player-top">
+            <div className="demo-player demo-player-top">
               <h3>Player 1</h3>
               <div className="demo-cards">
                 <img
@@ -129,7 +129,7 @@ const App = () => {
             </div>
 
             <div className="demo-container">
-              <div className="demo-player-left flex-one">
+              <div className="demo-player demo-player-left flex-one">
                 <h3>Player 4</h3>
                 <div className="demo-cards">
                   <img
@@ -182,7 +182,7 @@ const App = () => {
                 <div className="demo-table"></div>
               </div>
 
-              <div className="demo-player-right flex-one">
+              <div className="demo-player demo-player-right flex-one">
                 <h3>Player 2</h3>
                 <div className="demo-cards">
                   <img
@@ -230,7 +230,7 @@ const App = () => {
                 </div>
               </div>
             </div>
-            <div className="demo-player-bottom">
+            <div className="demo-player demo-player-bottom">
               <h3>Player 3</h3>
               <div className="demo-cards">
                 <img

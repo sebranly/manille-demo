@@ -51,16 +51,36 @@ body {
   border-top: 3px solid blue;
 }
 
+.demo-player {
+  margin: 1%;
+}
+
+.demo-player-top {
+  border: 3px solid blue;
+}
+
 .demo-card-player-right {
   border-right: 3px solid red;
+}
+
+.demo-player-right {
+  border: 3px solid red;
 }
 
 .demo-card-player-bottom {
   border-bottom: 3px solid green;
 }
 
+.demo-player-bottom {
+  border: 3px solid green;
+}
+
 .demo-card-player-left {
   border-left: 3px solid yellow;
+}
+
+.demo-player-left {
+  border: 3px solid yellow;
 }
 
 .demo-card-used {
