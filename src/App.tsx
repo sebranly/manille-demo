@@ -5,41 +5,43 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { isMobile } from "react-device-detect";
 
-import TenClubs from "./img/cards/10clubs.svg";
-import AceClubs from "./img/cards/aceclubs.svg";
-import KingClubs from "./img/cards/kingclubs.svg";
-import QueenClubs from "./img/cards/queenclubs.svg";
-import JackClubs from "./img/cards/jackclubs.svg";
-import NineClubs from "./img/cards/9clubs.svg";
-import EightClubs from "./img/cards/8clubs.svg";
-import SevenClubs from "./img/cards/7clubs.svg";
+import TenClubs from "./img/cards/clubs/ten.svg";
+import AceClubs from "./img/cards/clubs/ace.svg";
+import KingClubs from "./img/cards/clubs/king.svg";
+import QueenClubs from "./img/cards/clubs/queen.svg";
+import JackClubs from "./img/cards/clubs/jack.svg";
+import NineClubs from "./img/cards/clubs/nine.svg";
+import EightClubs from "./img/cards/clubs/eight.svg";
+import SevenClubs from "./img/cards/clubs/seven.svg";
 
-import TenDiamonds from "./img/cards/10diamonds.svg";
-import AceDiamonds from "./img/cards/acediamonds.svg";
-import KingDiamonds from "./img/cards/kingdiamonds.svg";
-import QueenDiamonds from "./img/cards/queendiamonds.svg";
-import JackDiamonds from "./img/cards/jackdiamonds.svg";
-import NineDiamonds from "./img/cards/9diamonds.svg";
-import EightDiamonds from "./img/cards/8diamonds.svg";
-import SevenDiamonds from "./img/cards/7diamonds.svg";
+import TenDiamonds from "./img/cards/diamonds/ten.svg";
+import AceDiamonds from "./img/cards/diamonds/ace.svg";
+import KingDiamonds from "./img/cards/diamonds/king.svg";
+import QueenDiamonds from "./img/cards/diamonds/queen.svg";
+import JackDiamonds from "./img/cards/diamonds/jack.svg";
+import NineDiamonds from "./img/cards/diamonds/nine.svg";
+import EightDiamonds from "./img/cards/diamonds/eight.svg";
+import SevenDiamonds from "./img/cards/diamonds/seven.svg";
 
-import TenHearts from "./img/cards/10hearts.svg";
-import AceHearts from "./img/cards/acehearts.svg";
-import KingHearts from "./img/cards/kinghearts.svg";
-import QueenHearts from "./img/cards/queenhearts.svg";
-import JackHearts from "./img/cards/jackhearts.svg";
-import NineHearts from "./img/cards/9hearts.svg";
-import EightHearts from "./img/cards/8hearts.svg";
-import SevenHearts from "./img/cards/7hearts.svg";
+import TenHearts from "./img/cards/hearts/ten.svg";
+import AceHearts from "./img/cards/hearts/ace.svg";
+import KingHearts from "./img/cards/hearts/king.svg";
+import QueenHearts from "./img/cards/hearts/queen.svg";
+import JackHearts from "./img/cards/hearts/jack.svg";
+import NineHearts from "./img/cards/hearts/nine.svg";
+import EightHearts from "./img/cards/hearts/eight.svg";
+import SevenHearts from "./img/cards/hearts/seven.svg";
 
-import TenSpades from "./img/cards/10spades.svg";
-import AceSpades from "./img/cards/acespades.svg";
-import KingSpades from "./img/cards/kingspades.svg";
-import QueenSpades from "./img/cards/queenspades.svg";
-import JackSpades from "./img/cards/jackspades.svg";
-import NineSpades from "./img/cards/9spades.svg";
-import EightSpades from "./img/cards/8spades.svg";
-import SevenSpades from "./img/cards/7spades.svg";
+import TenSpades from "./img/cards/spades/ten.svg";
+import AceSpades from "./img/cards/spades/ace.svg";
+import KingSpades from "./img/cards/spades/king.svg";
+import QueenSpades from "./img/cards/spades/queen.svg";
+import JackSpades from "./img/cards/spades/jack.svg";
+import NineSpades from "./img/cards/spades/nine.svg";
+import EightSpades from "./img/cards/spades/eight.svg";
+import SevenSpades from "./img/cards/spades/seven.svg";
+
+import CardBack from "./img/cards/back.svg";
 
 const App = () => {
   if (isMobile) {
@@ -178,8 +180,40 @@ const App = () => {
               </div>
 
               <div className="flex-one">
-                <h2>Table</h2>
-                <div className="demo-table"></div>
+                <div className="demo-table demo-container">
+                  <div className="flex-one flex-center">
+                    <img
+                      className="demo-card width-one-card"
+                      src={CardBack}
+                      alt="React Logo"
+                    />
+                  </div>
+                  <div className="flex-one">
+                    <div className="demo-container flex-column">
+                      <div>
+                        <img
+                          className="demo-card width-one-card"
+                          src={QueenClubs}
+                          alt="React Logo"
+                        />
+                      </div>
+                      <div>
+                        <img
+                          className="demo-card width-one-card"
+                          src={CardBack}
+                          alt="React Logo"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex-one flex-center">
+                    <img
+                      className="demo-card width-one-card"
+                      src={QueenClubs}
+                      alt="React Logo"
+                    />
+                  </div>
+                </div>
               </div>
 
               <div className="demo-player demo-player-right flex-one">
@@ -192,7 +226,7 @@ const App = () => {
                   />
                   <img
                     className="demo-card width-four-cards"
-                    src={AceClubs}
+                    src={CardBack}
                     alt="React Logo"
                   />
                   <img
@@ -240,7 +274,7 @@ const App = () => {
                 />
                 <img
                   className="demo-card width-eight-cards"
-                  src={AceClubs}
+                  src={CardBack}
                   alt="React Logo"
                 />
                 <img
@@ -250,7 +284,7 @@ const App = () => {
                 />
                 <img
                   className="demo-card width-eight-cards"
-                  src={QueenClubs}
+                  src={CardBack}
                   alt="React Logo"
                 />
                 <img
@@ -328,7 +362,7 @@ const App = () => {
               />
               <img
                 className="demo-card width-eight-cards demo-card-player-top"
-                src={AceDiamonds}
+                src={CardBack}
                 alt="React Logo"
               />
               <img

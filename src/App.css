@@ -27,6 +27,11 @@ body {
   max-width: 20%;
 }
 
+.width-one-card {
+  max-width: 100%;
+  padding: 5%;
+}
+
 .width-eight-cards {
   max-width: 10%;
 }
@@ -53,18 +58,37 @@ body {
 
 .demo-player {
   margin: 1%;
+  padding: 1%;
+}
+
+h1 {
+  padding: 1%;
 }
 
 .demo-player-top {
   border: 3px solid blue;
+  background-color: lightskyblue;
 }
 
 .demo-card-player-right {
   border-right: 3px solid red;
 }
 
+.demo-test {
+  position: relative;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-center {
+  align-self: center;
+}
+
 .demo-player-right {
   border: 3px solid red;
+  background-color: pink;
 }
 
 .demo-card-player-bottom {
@@ -72,6 +96,7 @@ body {
 }
 
 .demo-player-bottom {
+  background-color: yellowgreen;
   border: 3px solid green;
 }
 
@@ -81,6 +106,7 @@ body {
 
 .demo-player-left {
   border: 3px solid yellow;
+  background-color: burlywood;
 }
 
 .demo-card-used {
@@ -88,9 +114,11 @@ body {
 }
 
 .demo-table {
+  background-color: lightgray;
   min-height: 100px;
   min-width: 10px;
   margin: 2%;
+  padding: 2%;
   border-top: 3px solid blue;
   border-right: 3px solid red;
   border-bottom: 3px solid green;
