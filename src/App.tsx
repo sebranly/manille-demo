@@ -13,6 +13,8 @@ import { PlayingDeck } from './components/PlayingDeck';
 import { CARDS_PER_PLAYER } from './constants';
 
 import { Status } from './types';
+import { CardSelection } from './components/CardSelection';
+import classnames from 'classnames';
 
 const App = () => {
   const [horizontalSpace, setHorizontalSpace] = React.useState(true);
@@ -44,31 +46,28 @@ const App = () => {
     );
   }
 
-  const renderMessageSelection = () => {
-    if (!isCardSelection) return null;
-    if (botsCards.length === CARDS_PER_PLAYER) return null;
-
-    if (botsCards.length === 0) return <div>{`Please select your ${CARDS_PER_PLAYER} cards`}</div>;
-
-    const suffix = ` (${botsCards.length}/${CARDS_PER_PLAYER})`;
-
-    if (botsCards.length < CARDS_PER_PLAYER) return <div>{`Please keep selecting cards ${suffix}`}</div>;
-
-    return <div>{`Too many cards being selected ${suffix}`}</div>;
-  };
-
-  const renderSelectionButton = () => {
-    if (!isCardSelection) return null;
-    if (botsCards.length !== CARDS_PER_PLAYER) return null;
-
-    return <button onClick={() => setStatus(Status.Play)}>Next step</button>;
-  };
-
   const isCardSelection = status === Status.CardSelection;
   const { Clubs, Diamonds, Hearts, Spades } = CardSuit;
   const emptyHand = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
   const botsCardsDisplay = [...orderCards(botsCards), ...emptyHand].slice(0, CARDS_PER_PLAYER);
   const playerCards = [generateSuit(Clubs), generateSuit(Diamonds), botsCardsDisplay, generateSuit(Hearts)];
+
+  const onClickCardSelection = (cardRank?: CardRank, cardSuit?: CardSuit) => {
+    if (isCardSelection) {
+      // TODO: code function in manille package
+      const hasCard = botsCards.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
+      if (hasCard) {
+        const newBotsCards = botsCards.filter((card: Card) => card.rank !== cardRank || card.suit !== cardSuit);
+
+        setBotsCards(newBotsCards);
+      } else if (cardRank && cardSuit) {
+        setBotsCards([...botsCards, { rank: cardRank, suit: cardSuit }]);
+      }
+    }
+  };
+
+  const onClickCardSelectionNextStep = () => setStatus(Status.Play);
+  const classesDeck = classnames('demo-cards', deckFlex);
 
   return (
     <HelmetProvider>
@@ -92,33 +91,22 @@ const App = () => {
         )}
         <div className="demo-container">
           {!isCardSelection && (
-            <PlayingSpace cards={playerCards} className={`${tableFlex} demo-space`} horizontal={horizontalSpace} />
+            <>
+              <PlayingSpace cards={playerCards} className={`${tableFlex} demo-space`} horizontal={horizontalSpace} />
+              <div className={classesDeck}>
+                <h2>All cards</h2>
+                <PlayingDeck botsCards={botsCards} displayMode={deckDisplayMode} cards={generateDeck()} />
+              </div>
+            </>
           )}
-          <div className={`${deckFlex} demo-cards`}>
-            <h2>All cards</h2>
-            {renderMessageSelection()}
-            {renderSelectionButton()}
-            <PlayingDeck
+          {isCardSelection && (
+            <CardSelection
               botsCards={botsCards}
-              cards={generateDeck()}
-              displayMode={deckDisplayMode}
-              onClick={(cardRank?: CardRank, cardSuit?: CardSuit) => {
-                if (isCardSelection) {
-                  // TODO: code function in manille package
-                  const hasCard = botsCards.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
-                  if (hasCard) {
-                    const newBotsCards = botsCards.filter(
-                      (card: Card) => card.rank !== cardRank || card.suit !== cardSuit
-                    );
-
-                    setBotsCards(newBotsCards);
-                  } else if (cardRank && cardSuit) {
-                    setBotsCards([...botsCards, { rank: cardRank, suit: cardSuit }]);
-                  }
-                }
-              }}
+              onClickCard={onClickCardSelection}
+              onClickButton={onClickCardSelectionNextStep}
             />
-          </div>
+          )}
+          {/* TODO: add for last step */}
         </div>
       </div>
     </HelmetProvider>
