@@ -15,12 +15,17 @@ import { CARDS_PER_PLAYER } from './constants';
 import { Status } from './types';
 import { CardSelection } from './components/CardSelection';
 import classnames from 'classnames';
+import { PlayersNames } from './components/PlayersNames';
+
+// TODO: import deeper
+import { clone } from 'lodash';
 
 const App = () => {
   const [horizontalSpace, setHorizontalSpace] = React.useState(true);
   const [expandDeck, setExpandDeck] = React.useState(true);
   const [botsCards, setBotsCards] = React.useState<Card[]>([]);
-  const [status, setStatus] = React.useState(Status.CardSelection);
+  const [names, setNames] = React.useState(['Player 1', 'Player 2', 'Player 3', 'Player 4']);
+  const [status, setStatus] = React.useState(Status.PlayersNames);
 
   const tableFlex = expandDeck ? 'flex-three' : 'flex-two';
   const deckFlex = expandDeck ? 'flex-two' : 'flex-one';
@@ -46,14 +51,17 @@ const App = () => {
     );
   }
 
-  const isCardSelection = status === Status.CardSelection;
+  const isCardsSelection = status === Status.CardsSelection;
+  const isPlayersNames = status === Status.PlayersNames;
+  const isPlay = status === Status.Play;
+
   const { Clubs, Diamonds, Hearts, Spades } = CardSuit;
   const emptyHand = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
   const botsCardsDisplay = [...orderCards(botsCards), ...emptyHand].slice(0, CARDS_PER_PLAYER);
   const playerCards = [generateSuit(Clubs), generateSuit(Diamonds), botsCardsDisplay, generateSuit(Hearts)];
 
   const onClickCardSelection = (cardRank?: CardRank, cardSuit?: CardSuit) => {
-    if (isCardSelection) {
+    if (isCardsSelection) {
       // TODO: code function in manille package
       const hasCard = botsCards.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
       if (hasCard) {
@@ -67,7 +75,9 @@ const App = () => {
   };
 
   const onClickCardSelectionNextStep = () => setStatus(Status.Play);
+  const onClickPlayersNamesNextStep = () => setStatus(Status.CardsSelection);
   const classesDeck = classnames('demo-cards', deckFlex);
+  const classesContainer = classnames('demo-container', { 'demo-center': isPlayersNames });
 
   return (
     <HelmetProvider>
@@ -83,30 +93,50 @@ const App = () => {
       </Helmet>
       <div className="main">
         <h1>Manille</h1>
-        {!isCardSelection && (
+        {isPlay && (
           <>
-            <button onClick={() => setHorizontalSpace(!horizontalSpace)}>Change layout table</button>
-            <button onClick={() => setExpandDeck(!expandDeck)}>Change layout deck</button>
+            <button className="demo-button" onClick={() => setHorizontalSpace(!horizontalSpace)}>
+              Change table layout
+            </button>
+            <button className="demo-button" onClick={() => setExpandDeck(!expandDeck)}>
+              Change deck layout
+            </button>
           </>
         )}
-        <div className="demo-container">
-          {!isCardSelection && (
+        <div className={classesContainer}>
+          {isPlay && (
             <>
-              <PlayingSpace cards={playerCards} className={`${tableFlex} demo-space`} horizontal={horizontalSpace} />
+              <PlayingSpace
+                cards={playerCards}
+                className={`${tableFlex} demo-space`}
+                horizontal={horizontalSpace}
+                names={names}
+              />
               <div className={classesDeck}>
                 <h2>All cards</h2>
                 <PlayingDeck botsCards={botsCards} displayMode={deckDisplayMode} cards={generateDeck()} />
               </div>
             </>
           )}
-          {isCardSelection && (
+          {isCardsSelection && (
             <CardSelection
               botsCards={botsCards}
               onClickCard={onClickCardSelection}
               onClickButton={onClickCardSelectionNextStep}
             />
           )}
-          {/* TODO: add for last step */}
+          {isPlayersNames && (
+            <PlayersNames
+              names={names}
+              onClickButton={onClickPlayersNamesNextStep}
+              onChange={(index: number, value: string) => {
+                const newNames = clone(names);
+                newNames[index] = value;
+
+                setNames(newNames);
+              }}
+            />
+          )}
         </div>
       </div>
     </HelmetProvider>

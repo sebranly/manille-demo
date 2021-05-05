@@ -1,5 +1,5 @@
 export enum Status {
-  PlayerName = 'player name',
-  CardSelection = 'card selection',
+  PlayersNames = 'players names',
+  CardsSelection = 'cards selection',
   Play = 'play'
 }

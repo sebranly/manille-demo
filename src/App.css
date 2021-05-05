@@ -19,9 +19,23 @@ body {
   padding: 0.5%;
 }
 
+.demo-button {
+  margin: 0.5%;
+  padding: 0.5%;
+}
+
 .demo-space {
   margin: 0.5%;
   padding: 0.5%;
+}
+
+.demo-block {
+  display: block;
+  margin: 5%;
+}
+
+.demo-center {
+  justify-content: center;
 }
 
 .width-two-cards {
