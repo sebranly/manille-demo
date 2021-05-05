@@ -3,20 +3,26 @@ import { Card, CardRank, CardSuit } from 'manille/lib/types';
 import { PlayingCard } from './PlayingCard';
 import classnames from 'classnames';
 import { getCardLabelDeck } from '../utils';
+import { generateDeck } from 'manille/lib/cards';
+import { NUMBER_PLAYERS } from '../constants';
 
 export interface PlayingDeckProps {
   botsCards: Card[];
+  infoCards?: Card[][];
   className?: string;
-  cards: Card[];
   displayMode?: 4 | 8;
+  showOwners?: boolean;
   onClick?: (cardRank?: CardRank, cardSuit?: CardSuit) => void;
 }
 
 const PlayingDeck: React.FC<PlayingDeckProps> = (props) => {
-  const { botsCards, cards, displayMode = 8, onClick } = props;
+  const { botsCards, displayMode = 8, infoCards, onClick, showOwners = false } = props;
+  console.log('🚀 ~ file: PlayingDeck.tsx ~ line 20 ~ infoCards', infoCards);
+  const cards = generateDeck();
 
-  if (cards.length === 0) return null;
   const classCard = displayMode === 8 ? 'width-eight-cards' : 'width-four-cards';
+
+  if (showOwners && (!infoCards || infoCards.length !== NUMBER_PLAYERS)) return null;
 
   return (
     <div className="demo-cards">
@@ -24,7 +30,19 @@ const PlayingDeck: React.FC<PlayingDeckProps> = (props) => {
         // TODO: code function in manille package
         const botHasCard = botsCards.some((botCard: Card) => card.rank === botCard.rank && card.suit === botCard.suit);
         const classes = classnames(classCard, {
-          'demo-card-used': botHasCard
+          'demo-card-used': botHasCard,
+          'demo-card-player-top':
+            showOwners &&
+            infoCards![0].some((infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit),
+          'demo-card-player-right':
+            showOwners &&
+            infoCards![1].some((infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit),
+          'demo-card-player-bottom':
+            showOwners &&
+            infoCards![2].some((infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit),
+          'demo-card-player-left':
+            showOwners &&
+            infoCards![3].some((infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit)
         });
 
         return <PlayingCard card={card} className={classes} key={getCardLabelDeck(index, card)} onClick={onClick} />;

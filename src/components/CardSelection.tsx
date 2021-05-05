@@ -28,7 +28,7 @@ const CardSelection: React.FC<CardSelectionProps> = (props) => {
       <div className="demo-cards">
         <h2>Your cards</h2>
         {renderMessageSelection()}
-        <PlayingDeck botsCards={botsCards} cards={generateDeck()} onClick={onClickCard} />
+        <PlayingDeck botsCards={botsCards} onClick={onClickCard} />
       </div>
     </div>
   );
