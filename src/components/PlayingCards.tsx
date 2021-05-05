@@ -18,46 +18,36 @@ const PlayingCards: React.FC<PlayingCardsProps> = (props) => {
   if (displayMode === 4) {
     const [card0, card1, card2, card3, ...lastCards] = cards;
     const firstCards = [card0, card1, card2, card3];
+    const displayCards = [firstCards, lastCards];
 
     return (
       <>
-        <div className="demo-cards">
-          {firstCards.map((card: Card | undefined, index: number) => (
-            <PlayingCard card={card} className="width-four-cards" key={getCardLabel(index, playerId, card)} />
-          ))}
-        </div>
-        <div className="demo-cards">
-          {lastCards.map((card: Card | undefined, index: number) => (
-            <PlayingCard card={card} className="width-four-cards" key={getCardLabel(index, playerId, card)} />
-          ))}
-        </div>
+        {displayCards.map((c, index: number) => {
+          return (
+            <div className="demo-cards" key={index}>
+              {c.map((card: Card | undefined, index: number) => (
+                <PlayingCard card={card} className="width-four-cards" key={getCardLabel(index, playerId, card)} />
+              ))}
+            </div>
+          );
+        })}
       </>
     );
   } else if (displayMode === 2) {
     const [card0, card1, card2, card3, card4, card5, ...lastCards] = cards;
+    const displayCards = [[card0, card1], [card2, card3], [card4, card5], lastCards];
 
     return (
       <>
-        <div className="demo-cards">
-          {[card0, card1].map((card: Card | undefined, index: number) => (
-            <PlayingCard card={card} className="width-four-cards" key={getCardLabel(index, playerId, card)} />
-          ))}
-        </div>
-        <div className="demo-cards">
-          {[card2, card3].map((card: Card | undefined, index: number) => (
-            <PlayingCard card={card} className="width-four-cards" key={getCardLabel(index, playerId, card)} />
-          ))}
-        </div>
-        <div className="demo-cards">
-          {[card4, card5].map((card: Card | undefined, index: number) => (
-            <PlayingCard card={card} className="width-four-cards" key={getCardLabel(index, playerId, card)} />
-          ))}
-        </div>
-        <div className="demo-cards">
-          {lastCards.map((card: Card | undefined, index: number) => (
-            <PlayingCard card={card} className="width-four-cards" key={getCardLabel(index, playerId, card)} />
-          ))}
-        </div>
+        {displayCards.map((c, index: number) => {
+          return (
+            <div className="demo-cards" key={index}>
+              {c.map((card: Card | undefined, index: number) => (
+                <PlayingCard card={card} className="width-two-cards" key={getCardLabel(index, playerId, card)} />
+              ))}
+            </div>
+          );
+        })}
       </>
     );
   }
