@@ -17,7 +17,6 @@ export interface PlayingDeckProps {
 
 const PlayingDeck: React.FC<PlayingDeckProps> = (props) => {
   const { botsCards, displayMode = 8, infoCards, onClick, showOwners = false } = props;
-  console.log('🚀 ~ file: PlayingDeck.tsx ~ line 20 ~ infoCards', infoCards);
   const cards = generateDeck();
 
   const classCard = displayMode === 8 ? 'width-eight-cards' : 'width-four-cards';
@@ -29,6 +28,8 @@ const PlayingDeck: React.FC<PlayingDeckProps> = (props) => {
       {cards.map((card: Card, index: number) => {
         // TODO: code function in manille package
         const botHasCard = botsCards.some((botCard: Card) => card.rank === botCard.rank && card.suit === botCard.suit);
+
+        // TODO: factorize
         const classes = classnames(classCard, {
           'demo-card-used': botHasCard,
           'demo-card-player-top':
