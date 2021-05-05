@@ -58,8 +58,9 @@ const App = () => {
 
   const { Clubs, Diamonds, Hearts, Spades } = CardSuit;
   const emptyHand = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
-  const botsCardsDisplay = [...orderCards(botsCards), ...emptyHand].slice(0, CARDS_PER_PLAYER);
-  const playerCards = [generateSuit(Clubs), generateSuit(Diamonds), botsCardsDisplay, generateSuit(Hearts)];
+  const botsCardsDisplay = orderCards(botsCards);
+  const playerCards: (Card | undefined)[][] = [emptyHand, emptyHand, emptyHand, emptyHand];
+  playerCards[botPlayerId] = botsCardsDisplay;
 
   const onClickCardSelection = (cardRank?: CardRank, cardSuit?: CardSuit) => {
     if (isCardsSelection) {
