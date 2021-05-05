@@ -12,11 +12,13 @@ import { PlayingSpace } from './components/PlayingSpace';
 import { PlayingDeck } from './components/PlayingDeck';
 import { CARDS_PER_PLAYER } from './constants';
 
+import { Status } from './types';
+
 const App = () => {
   const [horizontalSpace, setHorizontalSpace] = React.useState(true);
   const [expandDeck, setExpandDeck] = React.useState(true);
   const [botsCards, setBotsCards] = React.useState<Card[]>([]);
-  const [start, setStart] = React.useState(false);
+  const [status, setStatus] = React.useState(Status.CardSelection);
 
   const tableFlex = expandDeck ? 'flex-three' : 'flex-two';
   const deckFlex = expandDeck ? 'flex-two' : 'flex-one';
@@ -42,6 +44,27 @@ const App = () => {
     );
   }
 
+  const renderMessageSelection = () => {
+    if (!isCardSelection) return null;
+    if (botsCards.length === CARDS_PER_PLAYER) return null;
+
+    if (botsCards.length === 0) return <div>{`Please select your ${CARDS_PER_PLAYER} cards`}</div>;
+
+    const suffix = ` (${botsCards.length}/${CARDS_PER_PLAYER})`;
+
+    if (botsCards.length < CARDS_PER_PLAYER) return <div>{`Please keep selecting cards ${suffix}`}</div>;
+
+    return <div>{`Too many cards being selected ${suffix}`}</div>;
+  };
+
+  const renderSelectionButton = () => {
+    if (!isCardSelection) return null;
+    if (botsCards.length !== CARDS_PER_PLAYER) return null;
+
+    return <button onClick={() => setStatus(Status.Play)}>Next step</button>;
+  };
+
+  const isCardSelection = status === Status.CardSelection;
   const { Clubs, Diamonds, Hearts, Spades } = CardSuit;
   const emptyHand = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
   const botsCardsDisplay = [...orderCards(botsCards), ...emptyHand].slice(0, CARDS_PER_PLAYER);
@@ -61,30 +84,37 @@ const App = () => {
       </Helmet>
       <div className="main">
         <h1>Manille</h1>
-        <button onClick={() => setHorizontalSpace(!horizontalSpace)}>Change layout table</button>
-        <button onClick={() => setExpandDeck(!expandDeck)}>Change layout deck</button>
-        {botsCards.length === CARDS_PER_PLAYER && <div>Perfect, let's start</div>}
-        {botsCards.length < CARDS_PER_PLAYER && <div>Not enough cards for the bot</div>}
-        {botsCards.length > CARDS_PER_PLAYER && <div>Too many cards for the bot</div>}
+        {!isCardSelection && (
+          <>
+            <button onClick={() => setHorizontalSpace(!horizontalSpace)}>Change layout table</button>
+            <button onClick={() => setExpandDeck(!expandDeck)}>Change layout deck</button>
+          </>
+        )}
         <div className="demo-container">
-          <PlayingSpace cards={playerCards} className={`${tableFlex} demo-space`} horizontal={horizontalSpace} />
+          {!isCardSelection && (
+            <PlayingSpace cards={playerCards} className={`${tableFlex} demo-space`} horizontal={horizontalSpace} />
+          )}
           <div className={`${deckFlex} demo-cards`}>
             <h2>All cards</h2>
+            {renderMessageSelection()}
+            {renderSelectionButton()}
             <PlayingDeck
               botsCards={botsCards}
               cards={generateDeck()}
               displayMode={deckDisplayMode}
               onClick={(cardRank?: CardRank, cardSuit?: CardSuit) => {
-                // TODO: code function in manille package
-                const hasCard = botsCards.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
-                if (hasCard) {
-                  const newBotsCards = botsCards.filter(
-                    (card: Card) => card.rank !== cardRank || card.suit !== cardSuit
-                  );
+                if (isCardSelection) {
+                  // TODO: code function in manille package
+                  const hasCard = botsCards.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
+                  if (hasCard) {
+                    const newBotsCards = botsCards.filter(
+                      (card: Card) => card.rank !== cardRank || card.suit !== cardSuit
+                    );
 
-                  setBotsCards(newBotsCards);
-                } else if (cardRank && cardSuit) {
-                  setBotsCards([...botsCards, { rank: cardRank, suit: cardSuit }]);
+                    setBotsCards(newBotsCards);
+                  } else if (cardRank && cardSuit) {
+                    setBotsCards([...botsCards, { rank: cardRank, suit: cardSuit }]);
+                  }
                 }
               }}
             />
