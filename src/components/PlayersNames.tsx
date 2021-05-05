@@ -1,8 +1,5 @@
 import * as React from 'react';
-import { Card, CardRank, CardSuit } from 'manille/lib/types';
-import { CARDS_PER_PLAYER, NUMBER_PLAYERS } from '../constants';
-import { generateDeck } from 'manille/lib/cards';
-import { PlayingDeck } from './PlayingDeck';
+import { NUMBER_PLAYERS } from '../constants';
 import { getPlayerSuffix } from '../utils';
 
 export interface PlayersNamesProps {
@@ -37,8 +34,8 @@ const PlayersNames: React.FC<PlayersNamesProps> = (props) => {
             <input
               className="demo-margin-left"
               type="radio"
-              value="0"
-              name="gender"
+              value={`${id}`}
+              name=""
               checked={isBot}
               onChange={() => onChangeBotId(id)}
             />{' '}

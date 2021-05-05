@@ -31,7 +31,7 @@ const PlayingDeck: React.FC<PlayingDeckProps> = (props) => {
 
         // TODO: factorize
         const classes = classnames(classCard, {
-          'demo-card-used': botHasCard,
+          'demo-card-used': !showOwners && botHasCard,
           'demo-card-player-top':
             showOwners &&
             infoCards![0].some((infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit),

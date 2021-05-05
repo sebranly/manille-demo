@@ -20,14 +20,17 @@ import { PlayersNames } from './components/PlayersNames';
 
 // TODO: import deeper
 import { clone } from 'lodash';
+import { TrumpSuitSelection } from './components/TrumpSuitSelection';
 
 const App = () => {
   const [horizontalSpace, setHorizontalSpace] = React.useState(true);
   const [expandDeck, setExpandDeck] = React.useState(true);
   const [botsCards, setBotsCards] = React.useState<Card[]>([]);
   const [names, setNames] = React.useState(['Player 1', 'Player 2', 'Player 3', 'Player 4']);
-  const [status, setStatus] = React.useState(Status.PlayersNames);
+  const [status, setStatus] = React.useState(Status.TrumpSuit);
   const [botPlayerId, setBotPlayerId] = React.useState<0 | 1 | 2 | 3>(2);
+  const [trumpSuit, setTrumpSuit] = React.useState<false | CardSuit>(false);
+  const [currentPlayerId, setCurrentPlayerId] = React.useState<0 | 1 | 2 | 3>(0);
 
   const tableFlex = expandDeck ? 'flex-three' : 'flex-two';
   const deckFlex = expandDeck ? 'flex-two' : 'flex-one';
@@ -53,9 +56,11 @@ const App = () => {
     );
   }
 
+  // TODO: add step suffix to all
   const isCardsSelection = status === Status.CardsSelection;
   const isPlayersNames = status === Status.PlayersNames;
   const isPlay = status === Status.Play;
+  const isTrumpSuitStep = status === Status.TrumpSuit;
 
   const emptyHand = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
   const botsCardsDisplay = orderCards(botsCards);
@@ -73,11 +78,12 @@ const App = () => {
         const newBotsCards = botsCards.filter((card: Card) => card.rank !== cardRank || card.suit !== cardSuit);
 
         setBotsCards(newBotsCards);
-        if (newBotsCards.length === CARDS_PER_PLAYER) setStatus(Status.Play);
+        // TODO: factorize
+        if (newBotsCards.length === CARDS_PER_PLAYER) setStatus(Status.TrumpSuit);
       } else if (cardRank && cardSuit) {
         const newBotsCards = [...botsCards, { rank: cardRank, suit: cardSuit }];
         setBotsCards(newBotsCards);
-        if (newBotsCards.length === CARDS_PER_PLAYER) setStatus(Status.Play);
+        if (newBotsCards.length === CARDS_PER_PLAYER) setStatus(Status.TrumpSuit);
       }
     }
   };
@@ -90,8 +96,11 @@ const App = () => {
   };
 
   const onChangeBotId = (index: 0 | 1 | 2 | 3) => setBotPlayerId(index);
+  const onChangeCurrentPlayerId = (index: 0 | 1 | 2 | 3) => setCurrentPlayerId(index);
+  const onChangeTrumpSuit = (suit: CardSuit | false) => setTrumpSuit(suit);
 
   const onClickPlayersNamesNextStep = () => setStatus(Status.CardsSelection);
+  const onClickTrumpSuitSelectionNext = () => setStatus(Status.Play);
   const classesDeck = classnames('demo-cards', deckFlex);
   const classesContainer = classnames('demo-container', { 'demo-center': isPlayersNames });
 
@@ -150,7 +159,18 @@ const App = () => {
               onChangeBotId={onChangeBotId}
             />
           )}
-        </div>
+        </div>{' '}
+        {isTrumpSuitStep && (
+          <TrumpSuitSelection
+            botPlayerId={botPlayerId}
+            names={names}
+            currentPlayerId={currentPlayerId}
+            trumpSuit={trumpSuit}
+            onClickButton={onClickTrumpSuitSelectionNext}
+            onChangeCurrentPlayerId={onChangeCurrentPlayerId}
+            onChangeTrumpSuit={onChangeTrumpSuit}
+          />
+        )}
       </div>
     </HelmetProvider>
   );

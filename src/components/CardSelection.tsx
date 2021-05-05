@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Card, CardRank, CardSuit } from 'manille/lib/types';
 import { CARDS_PER_PLAYER } from '../constants';
-import { generateDeck } from 'manille/lib/cards';
 import { PlayingDeck } from './PlayingDeck';
 
 export interface CardSelectionProps {

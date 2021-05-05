@@ -67,6 +67,22 @@ body {
   flex: 3;
 }
 
+.demo-half-width {
+  max-width: 50%;
+}
+
+.margin-auto {
+  margin: auto;
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
 .demo-cards {
   border: 1px solid transparent;
 }
@@ -100,6 +116,11 @@ h1 {
 .demo-margin-y {
   margin-bottom: 5px;
   margin-top: 5px;
+}
+
+.demo-margin-x {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .demo-card-player-right {
