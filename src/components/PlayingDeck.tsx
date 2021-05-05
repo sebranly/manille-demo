@@ -21,6 +21,7 @@ const PlayingDeck: React.FC<PlayingDeckProps> = (props) => {
   return (
     <div className="demo-cards">
       {cards.map((card: Card, index: number) => {
+        // TODO: code function in manille package
         const botHasCard = botsCards.some((botCard: Card) => card.rank === botCard.rank && card.suit === botCard.suit);
         const classes = classnames(classCard, {
           'demo-card-used': botHasCard

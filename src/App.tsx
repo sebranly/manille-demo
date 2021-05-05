@@ -75,6 +75,7 @@ const App = () => {
               cards={generateDeck()}
               displayMode={deckDisplayMode}
               onClick={(cardRank?: CardRank, cardSuit?: CardSuit) => {
+                // TODO: code function in manille package
                 const hasCard = botsCards.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
                 if (hasCard) {
                   const newBotsCards = botsCards.filter(
