@@ -16,12 +16,33 @@ const PlayersNames: React.FC<PlayersNamesProps> = (props) => {
 
   if (names.length !== NUMBER_PLAYERS) return null;
 
+  // TODO: loop for 4
   return (
     <div className="demo-center">
-      <input className="demo-block" type="text" value={names[0]} onChange={(e) => onChange(0, e.target.value)} />
-      <input className="demo-block" type="text" value={names[1]} onChange={(e) => onChange(1, e.target.value)} />
-      <input className="demo-block" type="text" value={names[2]} onChange={(e) => onChange(2, e.target.value)} />
-      <input className="demo-block" type="text" value={names[3]} onChange={(e) => onChange(3, e.target.value)} />
+      <input
+        className="demo-block demo-player-top"
+        type="text"
+        value={names[0]}
+        onChange={(e) => onChange(0, e.target.value)}
+      />
+      <input
+        className="demo-block demo-player-right"
+        type="text"
+        value={names[1]}
+        onChange={(e) => onChange(1, e.target.value)}
+      />
+      <input
+        className="demo-block demo-player-bottom"
+        type="text"
+        value={names[2]}
+        onChange={(e) => onChange(2, e.target.value)}
+      />
+      <input
+        className="demo-block demo-player-left"
+        type="text"
+        value={names[3]}
+        onChange={(e) => onChange(3, e.target.value)}
+      />
       <button onClick={onClickButton}>Next step</button>
     </div>
   );

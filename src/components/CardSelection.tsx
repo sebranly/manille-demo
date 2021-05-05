@@ -35,7 +35,7 @@ const CardSelection: React.FC<CardSelectionProps> = (props) => {
   return (
     <div className="demo-container">
       <div className="demo-cards">
-        <h2>All cards</h2>
+        <h2>Your cards</h2>
         {renderMessageSelection()}
         {renderSelectionButton()}
         <PlayingDeck botsCards={botsCards} cards={generateDeck()} onClick={onClickCard} />
