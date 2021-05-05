@@ -6,7 +6,7 @@ body {
 
 .main {
   text-align: center;
-  font-family: "Merriweather";
+  font-family: 'Merriweather';
   font-size: 25px;
 }
 
@@ -16,6 +16,12 @@ body {
 
 .demo-card {
   margin: 1%;
+  padding: 0.5%;
+}
+
+.demo-space {
+  border: 1px solid black;
+  margin: 0.5%;
   padding: 0.5%;
 }
 
@@ -72,10 +78,6 @@ h1 {
 
 .demo-card-player-right {
   border-right: 3px solid red;
-}
-
-.demo-test {
-  position: relative;
 }
 
 .flex-column {
