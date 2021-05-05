@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7d1a80f23356235bebb2c884015d37a9",
+    "revision": "976ca5a155cbf4f0291e90d9e6428e5b",
     "url": "/manille-demo/index.html"
   },
   {
-    "revision": "8719571c9743df8a1a76",
+    "revision": "fea1e814552891bd9da6",
     "url": "/manille-demo/static/css/2.9233ae65.chunk.css"
   },
   {
-    "revision": "d0d8919fa0ce48c21da4",
-    "url": "/manille-demo/static/css/main.993fabc3.chunk.css"
+    "revision": "ceb73b8b98a4c76639b6",
+    "url": "/manille-demo/static/css/main.3dd050a5.chunk.css"
   },
   {
-    "revision": "8719571c9743df8a1a76",
-    "url": "/manille-demo/static/js/2.e9c15f75.chunk.js"
+    "revision": "fea1e814552891bd9da6",
+    "url": "/manille-demo/static/js/2.f4745f87.chunk.js"
   },
   {
     "revision": "1e7c72074f35ed66b93cf322fe3bb1bf",
-    "url": "/manille-demo/static/js/2.e9c15f75.chunk.js.LICENSE.txt"
+    "url": "/manille-demo/static/js/2.f4745f87.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "d0d8919fa0ce48c21da4",
-    "url": "/manille-demo/static/js/main.3ba12594.chunk.js"
+    "revision": "ceb73b8b98a4c76639b6",
+    "url": "/manille-demo/static/js/main.7f23ccf3.chunk.js"
   },
   {
     "revision": "50e3a3071fcf1603afca",
