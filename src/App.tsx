@@ -6,7 +6,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { isMobile } from 'react-device-detect';
 
 import { Card, CardRank, CardSuit } from 'manille/lib/types';
-import { generateDeck, generateSuit } from 'manille/lib/cards';
+import { generateDeck, generateSuit, orderCards } from 'manille/lib/cards';
 
 import { PlayingSpace } from './components/PlayingSpace';
 import { PlayingDeck } from './components/PlayingDeck';
@@ -42,7 +42,9 @@ const App = () => {
   }
 
   const { Clubs, Diamonds, Hearts, Spades } = CardSuit;
-  const playerCards = [generateSuit(Clubs), generateSuit(Diamonds), generateSuit(Spades), generateSuit(Hearts)];
+  const emptyHand = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
+  const botsCardsDisplay = [...orderCards(botsCards), ...emptyHand].slice(0, 8);
+  const playerCards = [generateSuit(Clubs), generateSuit(Diamonds), botsCardsDisplay, generateSuit(Hearts)];
 
   return (
     <HelmetProvider>
@@ -60,7 +62,7 @@ const App = () => {
         <h1>Manille</h1>
         <button onClick={() => setHorizontalSpace(!horizontalSpace)}>Change layout table</button>
         <button onClick={() => setExpandDeck(!expandDeck)}>Change layout deck</button>
-        {botsCards.length === 8 && <button onClick={() => setStart(true)}>Start!</button>}
+        {botsCards.length === 8 && <div>Perfect, let's start</div>}
         {botsCards.length < 8 && <div>Not enough cards for the bot</div>}
         {botsCards.length > 8 && <div>Too many cards for the bot</div>}
         <div className="demo-container">

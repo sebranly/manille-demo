@@ -4,7 +4,7 @@ import { PlayingCard } from './PlayingCard';
 
 export interface PlayingCardsProps {
   className?: string;
-  cards: Card[];
+  cards: (Card | undefined)[];
   displayMode?: number;
 }
 
@@ -20,12 +20,12 @@ const PlayingCards: React.FC<PlayingCardsProps> = (props) => {
     return (
       <>
         <div className="demo-cards">
-          {firstCards.map((card: Card) => (
+          {firstCards.map((card?: Card) => (
             <PlayingCard card={card} className="width-four-cards" />
           ))}
         </div>
         <div className="demo-cards">
-          {lastCards.map((card: Card) => (
+          {lastCards.map((card?: Card) => (
             <PlayingCard card={card} className="width-four-cards" />
           ))}
         </div>
@@ -37,22 +37,22 @@ const PlayingCards: React.FC<PlayingCardsProps> = (props) => {
     return (
       <>
         <div className="demo-cards">
-          {[card1, card2].map((card: Card) => (
+          {[card1, card2].map((card?: Card) => (
             <PlayingCard card={card} className="width-four-cards" />
           ))}
         </div>
         <div className="demo-cards">
-          {[card3, card4].map((card: Card) => (
+          {[card3, card4].map((card?: Card) => (
             <PlayingCard card={card} className="width-four-cards" />
           ))}
         </div>
         <div className="demo-cards">
-          {[card5, card6].map((card: Card) => (
+          {[card5, card6].map((card?: Card) => (
             <PlayingCard card={card} className="width-four-cards" />
           ))}
         </div>
         <div className="demo-cards">
-          {lastCards.map((card: Card) => (
+          {lastCards.map((card?: Card) => (
             <PlayingCard card={card} className="width-four-cards" />
           ))}
         </div>
@@ -62,7 +62,7 @@ const PlayingCards: React.FC<PlayingCardsProps> = (props) => {
 
   return (
     <div className="demo-cards">
-      {cards.map((card: Card) => (
+      {cards.map((card?: Card) => (
         <PlayingCard card={card} className="width-eight-cards" />
       ))}
     </div>

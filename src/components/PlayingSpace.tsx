@@ -5,7 +5,7 @@ import { PlayingTable } from './PlayingTable';
 
 export interface PlayingSpaceProps {
   className?: string;
-  cards: Card[][];
+  cards: (Card | undefined)[][];
   horizontal?: boolean;
 }
 
