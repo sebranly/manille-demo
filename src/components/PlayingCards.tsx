@@ -1,15 +1,17 @@
 import * as React from 'react';
 import { Card } from 'manille/lib/types';
 import { PlayingCard } from './PlayingCard';
+import { getCardLabel } from '../utils';
 
 export interface PlayingCardsProps {
   className?: string;
   cards: (Card | undefined)[];
   displayMode?: 2 | 4 | 8;
+  playerId: 0 | 1 | 2 | 3;
 }
 
 const PlayingCards: React.FC<PlayingCardsProps> = (props) => {
-  const { cards, displayMode } = props;
+  const { cards, displayMode, playerId } = props;
 
   if (cards.length === 0) return null;
 
@@ -20,13 +22,13 @@ const PlayingCards: React.FC<PlayingCardsProps> = (props) => {
     return (
       <>
         <div className="demo-cards">
-          {firstCards.map((card?: Card) => (
-            <PlayingCard card={card} className="width-four-cards" />
+          {firstCards.map((card: Card | undefined, index: number) => (
+            <PlayingCard card={card} className="width-four-cards" key={getCardLabel(index, playerId, card)} />
           ))}
         </div>
         <div className="demo-cards">
-          {lastCards.map((card?: Card) => (
-            <PlayingCard card={card} className="width-four-cards" />
+          {lastCards.map((card: Card | undefined, index: number) => (
+            <PlayingCard card={card} className="width-four-cards" key={getCardLabel(index, playerId, card)} />
           ))}
         </div>
       </>
@@ -37,23 +39,23 @@ const PlayingCards: React.FC<PlayingCardsProps> = (props) => {
     return (
       <>
         <div className="demo-cards">
-          {[card0, card1].map((card?: Card) => (
-            <PlayingCard card={card} className="width-four-cards" />
+          {[card0, card1].map((card: Card | undefined, index: number) => (
+            <PlayingCard card={card} className="width-four-cards" key={getCardLabel(index, playerId, card)} />
           ))}
         </div>
         <div className="demo-cards">
-          {[card2, card3].map((card?: Card) => (
-            <PlayingCard card={card} className="width-four-cards" />
+          {[card2, card3].map((card: Card | undefined, index: number) => (
+            <PlayingCard card={card} className="width-four-cards" key={getCardLabel(index, playerId, card)} />
           ))}
         </div>
         <div className="demo-cards">
-          {[card4, card5].map((card?: Card) => (
-            <PlayingCard card={card} className="width-four-cards" />
+          {[card4, card5].map((card: Card | undefined, index: number) => (
+            <PlayingCard card={card} className="width-four-cards" key={getCardLabel(index, playerId, card)} />
           ))}
         </div>
         <div className="demo-cards">
-          {lastCards.map((card?: Card) => (
-            <PlayingCard card={card} className="width-four-cards" />
+          {lastCards.map((card: Card | undefined, index: number) => (
+            <PlayingCard card={card} className="width-four-cards" key={getCardLabel(index, playerId, card)} />
           ))}
         </div>
       </>
@@ -62,8 +64,8 @@ const PlayingCards: React.FC<PlayingCardsProps> = (props) => {
 
   return (
     <div className="demo-cards">
-      {cards.map((card?: Card) => (
-        <PlayingCard card={card} className="width-eight-cards" />
+      {cards.map((card: Card | undefined, index: number) => (
+        <PlayingCard card={card} className="width-eight-cards" key={getCardLabel(index, playerId, card)} />
       ))}
     </div>
   );

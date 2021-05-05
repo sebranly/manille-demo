@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Card, CardRank, CardSuit } from 'manille/lib/types';
 import { PlayingCard } from './PlayingCard';
 import classnames from 'classnames';
+import { getCardLabelDeck } from '../utils';
 
 export interface PlayingDeckProps {
   botsCards: Card[];
@@ -19,13 +20,13 @@ const PlayingDeck: React.FC<PlayingDeckProps> = (props) => {
 
   return (
     <div className="demo-cards">
-      {cards.map((card: Card) => {
+      {cards.map((card: Card, index: number) => {
         const botHasCard = botsCards.some((botCard: Card) => card.rank === botCard.rank && card.suit === botCard.suit);
         const classes = classnames(classCard, {
           'demo-card-used': botHasCard
         });
 
-        return <PlayingCard card={card} className={classes} onClick={onClick} />;
+        return <PlayingCard card={card} className={classes} key={getCardLabelDeck(index, card)} onClick={onClick} />;
       })}
     </div>
   );
