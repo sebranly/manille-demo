@@ -6,13 +6,19 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { isMobile } from 'react-device-detect';
 
 import { CardSuit } from 'manille/lib/types';
-import { generateSuit } from 'manille/lib/cards';
+import { generateDeck, generateSuit } from 'manille/lib/cards';
 
 import { PlayingCards } from './components/PlayingCards';
 import { PlayingSpace } from './components/PlayingSpace';
+import { PlayingDeck } from './components/PlayingDeck';
 
 const App = () => {
   const [horizontalSpace, setHorizontalSpace] = React.useState(true);
+  const [expandDeck, setExpandDeck] = React.useState(true);
+
+  const tableFlex = expandDeck ? 'flex-three' : 'flex-two';
+  const deckFlex = expandDeck ? 'flex-two' : 'flex-one';
+  const deckDisplayMode = expandDeck ? 8 : 4;
 
   if (isMobile) {
     return (
@@ -52,14 +58,12 @@ const App = () => {
       <div className="main">
         <h1>Manille</h1>
         <button onClick={() => setHorizontalSpace(!horizontalSpace)}>Change layout table</button>
+        <button onClick={() => setExpandDeck(!expandDeck)}>Change layout deck</button>
         <div className="demo-container">
-          <PlayingSpace cards={playerCards} className="flex-three demo-space" horizontal={horizontalSpace} />
-          <div className="flex-two demo-cards">
+          <PlayingSpace cards={playerCards} className={`${tableFlex} demo-space`} horizontal={horizontalSpace} />
+          <div className={`${deckFlex} demo-cards`}>
             <h2>All cards</h2>
-            <PlayingCards cards={generateSuit(Clubs)} />
-            <PlayingCards cards={generateSuit(Diamonds)} />
-            <PlayingCards cards={generateSuit(Spades)} />
-            <PlayingCards cards={generateSuit(Hearts)} />
+            <PlayingDeck cards={generateDeck()} displayMode={deckDisplayMode} />
           </div>
         </div>
       </div>
