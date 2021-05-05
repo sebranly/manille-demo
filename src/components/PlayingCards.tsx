@@ -1,6 +1,6 @@
-import * as React from "react";
-import { Card } from "manille/lib/types";
-import { PlayingCard } from "./PlayingCard";
+import * as React from 'react';
+import { Card } from 'manille/lib/types';
+import { PlayingCard } from './PlayingCard';
 
 export interface PlayingCardsProps {
   className?: string;
@@ -21,6 +21,33 @@ const PlayingCards: React.FC<PlayingCardsProps> = (props) => {
       <>
         <div className="demo-cards">
           {firstCards.map((card: Card) => (
+            <PlayingCard card={card} className="width-four-cards" />
+          ))}
+        </div>
+        <div className="demo-cards">
+          {lastCards.map((card: Card) => (
+            <PlayingCard card={card} className="width-four-cards" />
+          ))}
+        </div>
+      </>
+    );
+  } else if (displayMode === 2) {
+    const [card1, card2, card3, card4, card5, card6, ...lastCards] = cards;
+
+    return (
+      <>
+        <div className="demo-cards">
+          {[card1, card2].map((card: Card) => (
+            <PlayingCard card={card} className="width-four-cards" />
+          ))}
+        </div>
+        <div className="demo-cards">
+          {[card3, card4].map((card: Card) => (
+            <PlayingCard card={card} className="width-four-cards" />
+          ))}
+        </div>
+        <div className="demo-cards">
+          {[card5, card6].map((card: Card) => (
             <PlayingCard card={card} className="width-four-cards" />
           ))}
         </div>

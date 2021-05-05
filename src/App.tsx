@@ -9,9 +9,11 @@ import { CardSuit } from 'manille/lib/types';
 import { generateSuit } from 'manille/lib/cards';
 
 import { PlayingCards } from './components/PlayingCards';
-import { PlayingTable } from './components/PlayingTable';
+import { PlayingSpace } from './components/PlayingSpace';
 
 const App = () => {
+  const [horizontalSpace, setHorizontalSpace] = React.useState(true);
+
   if (isMobile) {
     return (
       <HelmetProvider>
@@ -49,8 +51,9 @@ const App = () => {
       </Helmet>
       <div className="main">
         <h1>Manille</h1>
+        <button onClick={() => setHorizontalSpace(!horizontalSpace)}>Change layout table</button>
         <div className="demo-container">
-          <PlayingTable cards={playerCards} className="flex-three" />
+          <PlayingSpace cards={playerCards} className="flex-three demo-space" horizontal={horizontalSpace} />
           <div className="flex-two demo-cards">
             <h2>All cards</h2>
             <PlayingCards cards={generateSuit(Clubs)} />
