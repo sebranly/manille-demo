@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Card } from 'manille/lib/types';
 import { PlayingCard } from './PlayingCard';
+import { NUMBER_PLAYERS } from '../constants';
 
 export interface PlayingTableProps {
   className?: string;
@@ -10,7 +11,7 @@ export interface PlayingTableProps {
 const PlayingTable: React.FC<PlayingTableProps> = (props) => {
   const { cards } = props;
 
-  if (cards.length !== 4) return null;
+  if (cards.length !== NUMBER_PLAYERS) return null;
 
   const [playerCard0, playerCard1, playerCard2, playerCard3] = cards;
 

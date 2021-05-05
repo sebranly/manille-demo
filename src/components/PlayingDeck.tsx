@@ -7,7 +7,7 @@ export interface PlayingDeckProps {
   botsCards: Card[];
   className?: string;
   cards: Card[];
-  displayMode: number;
+  displayMode: 4 | 8;
   onClick?: (cardRank?: CardRank, cardSuit?: CardSuit) => void;
 }
 

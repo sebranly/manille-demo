@@ -10,6 +10,7 @@ import { generateDeck, generateSuit, orderCards } from 'manille/lib/cards';
 
 import { PlayingSpace } from './components/PlayingSpace';
 import { PlayingDeck } from './components/PlayingDeck';
+import { CARDS_PER_PLAYER } from './constants';
 
 const App = () => {
   const [horizontalSpace, setHorizontalSpace] = React.useState(true);
@@ -43,7 +44,7 @@ const App = () => {
 
   const { Clubs, Diamonds, Hearts, Spades } = CardSuit;
   const emptyHand = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
-  const botsCardsDisplay = [...orderCards(botsCards), ...emptyHand].slice(0, 8);
+  const botsCardsDisplay = [...orderCards(botsCards), ...emptyHand].slice(0, CARDS_PER_PLAYER);
   const playerCards = [generateSuit(Clubs), generateSuit(Diamonds), botsCardsDisplay, generateSuit(Hearts)];
 
   return (
@@ -62,9 +63,9 @@ const App = () => {
         <h1>Manille</h1>
         <button onClick={() => setHorizontalSpace(!horizontalSpace)}>Change layout table</button>
         <button onClick={() => setExpandDeck(!expandDeck)}>Change layout deck</button>
-        {botsCards.length === 8 && <div>Perfect, let's start</div>}
-        {botsCards.length < 8 && <div>Not enough cards for the bot</div>}
-        {botsCards.length > 8 && <div>Too many cards for the bot</div>}
+        {botsCards.length === CARDS_PER_PLAYER && <div>Perfect, let's start</div>}
+        {botsCards.length < CARDS_PER_PLAYER && <div>Not enough cards for the bot</div>}
+        {botsCards.length > CARDS_PER_PLAYER && <div>Too many cards for the bot</div>}
         <div className="demo-container">
           <PlayingSpace cards={playerCards} className={`${tableFlex} demo-space`} horizontal={horizontalSpace} />
           <div className={`${deckFlex} demo-cards`}>

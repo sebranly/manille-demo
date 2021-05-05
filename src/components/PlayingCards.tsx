@@ -5,7 +5,7 @@ import { PlayingCard } from './PlayingCard';
 export interface PlayingCardsProps {
   className?: string;
   cards: (Card | undefined)[];
-  displayMode?: number;
+  displayMode?: 2 | 4 | 8;
 }
 
 const PlayingCards: React.FC<PlayingCardsProps> = (props) => {
