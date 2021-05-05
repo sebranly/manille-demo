@@ -26,6 +26,7 @@ const App = () => {
   const [botsCards, setBotsCards] = React.useState<Card[]>([]);
   const [names, setNames] = React.useState(['Player 1', 'Player 2', 'Player 3', 'Player 4']);
   const [status, setStatus] = React.useState(Status.PlayersNames);
+  const [botPlayerId, setBotPlayerId] = React.useState<0 | 1 | 2 | 3>(2);
 
   const tableFlex = expandDeck ? 'flex-three' : 'flex-two';
   const deckFlex = expandDeck ? 'flex-two' : 'flex-one';
@@ -77,6 +78,15 @@ const App = () => {
     }
   };
 
+  const onChangePlayersNames = (index: number, value: string) => {
+    const newNames = clone(names);
+    newNames[index] = value;
+
+    setNames(newNames);
+  };
+
+  const onChangeBotId = (index: 0 | 1 | 2 | 3) => setBotPlayerId(index);
+
   const onClickPlayersNamesNextStep = () => setStatus(Status.CardsSelection);
   const classesDeck = classnames('demo-cards', deckFlex);
   const classesContainer = classnames('demo-container', { 'demo-center': isPlayersNames });
@@ -109,6 +119,7 @@ const App = () => {
           {isPlay && (
             <>
               <PlayingSpace
+                botPlayerId={botPlayerId}
                 cards={playerCards}
                 className={`${tableFlex} demo-space`}
                 horizontal={horizontalSpace}
@@ -123,14 +134,11 @@ const App = () => {
           {isCardsSelection && <CardSelection botsCards={botsCards} onClickCard={onClickCardSelection} />}
           {isPlayersNames && (
             <PlayersNames
+              botPlayerId={botPlayerId}
               names={names}
               onClickButton={onClickPlayersNamesNextStep}
-              onChange={(index: number, value: string) => {
-                const newNames = clone(names);
-                newNames[index] = value;
-
-                setNames(newNames);
-              }}
+              onChange={onChangePlayersNames}
+              onChangeBotId={onChangeBotId}
             />
           )}
         </div>

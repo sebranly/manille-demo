@@ -89,6 +89,19 @@ h1 {
   background-color: lightskyblue;
 }
 
+.demo-inline {
+  display: inline-block;
+}
+
+.demo-margin-left {
+  margin-left: 5px;
+}
+
+.demo-margin-y {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
 .demo-card-player-right {
   border-right: 3px solid red;
 }
