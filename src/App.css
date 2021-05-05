@@ -19,10 +19,23 @@ body {
   padding: 0.5%;
 }
 
-.demo-space {
-  border: 1px solid black;
+.demo-button {
   margin: 0.5%;
   padding: 0.5%;
+}
+
+.demo-space {
+  margin: 0.5%;
+  padding: 0.5%;
+}
+
+.demo-block {
+  display: block;
+  margin: 5%;
+}
+
+.demo-center {
+  justify-content: center;
 }
 
 .width-two-cards {
@@ -74,6 +87,19 @@ h1 {
 .demo-player-top {
   border: 3px solid blue;
   background-color: lightskyblue;
+}
+
+.demo-inline {
+  display: inline-block;
+}
+
+.demo-margin-left {
+  margin-left: 5px;
+}
+
+.demo-margin-y {
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 .demo-card-player-right {

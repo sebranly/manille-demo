@@ -8,12 +8,12 @@ export interface PlayingDeckProps {
   botsCards: Card[];
   className?: string;
   cards: Card[];
-  displayMode: 4 | 8;
+  displayMode?: 4 | 8;
   onClick?: (cardRank?: CardRank, cardSuit?: CardSuit) => void;
 }
 
 const PlayingDeck: React.FC<PlayingDeckProps> = (props) => {
-  const { botsCards, cards, displayMode, onClick } = props;
+  const { botsCards, cards, displayMode = 8, onClick } = props;
 
   if (cards.length === 0) return null;
   const classCard = displayMode === 8 ? 'width-eight-cards' : 'width-four-cards';

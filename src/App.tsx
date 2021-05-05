@@ -12,11 +12,21 @@ import { PlayingSpace } from './components/PlayingSpace';
 import { PlayingDeck } from './components/PlayingDeck';
 import { CARDS_PER_PLAYER } from './constants';
 
+import { Status } from './types';
+import { CardSelection } from './components/CardSelection';
+import classnames from 'classnames';
+import { PlayersNames } from './components/PlayersNames';
+
+// TODO: import deeper
+import { clone } from 'lodash';
+
 const App = () => {
   const [horizontalSpace, setHorizontalSpace] = React.useState(true);
   const [expandDeck, setExpandDeck] = React.useState(true);
   const [botsCards, setBotsCards] = React.useState<Card[]>([]);
-  const [start, setStart] = React.useState(false);
+  const [names, setNames] = React.useState(['Player 1', 'Player 2', 'Player 3', 'Player 4']);
+  const [status, setStatus] = React.useState(Status.PlayersNames);
+  const [botPlayerId, setBotPlayerId] = React.useState<0 | 1 | 2 | 3>(2);
 
   const tableFlex = expandDeck ? 'flex-three' : 'flex-two';
   const deckFlex = expandDeck ? 'flex-two' : 'flex-one';
@@ -42,10 +52,45 @@ const App = () => {
     );
   }
 
+  const isCardsSelection = status === Status.CardsSelection;
+  const isPlayersNames = status === Status.PlayersNames;
+  const isPlay = status === Status.Play;
+
   const { Clubs, Diamonds, Hearts, Spades } = CardSuit;
   const emptyHand = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
-  const botsCardsDisplay = [...orderCards(botsCards), ...emptyHand].slice(0, CARDS_PER_PLAYER);
-  const playerCards = [generateSuit(Clubs), generateSuit(Diamonds), botsCardsDisplay, generateSuit(Hearts)];
+  const botsCardsDisplay = orderCards(botsCards);
+  const playerCards: (Card | undefined)[][] = [emptyHand, emptyHand, emptyHand, emptyHand];
+  playerCards[botPlayerId] = botsCardsDisplay;
+
+  const onClickCardSelection = (cardRank?: CardRank, cardSuit?: CardSuit) => {
+    if (isCardsSelection) {
+      // TODO: code function in manille package
+      const hasCard = botsCards.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
+      if (hasCard) {
+        const newBotsCards = botsCards.filter((card: Card) => card.rank !== cardRank || card.suit !== cardSuit);
+
+        setBotsCards(newBotsCards);
+        if (newBotsCards.length === CARDS_PER_PLAYER) setStatus(Status.Play);
+      } else if (cardRank && cardSuit) {
+        const newBotsCards = [...botsCards, { rank: cardRank, suit: cardSuit }];
+        setBotsCards(newBotsCards);
+        if (newBotsCards.length === CARDS_PER_PLAYER) setStatus(Status.Play);
+      }
+    }
+  };
+
+  const onChangePlayersNames = (index: number, value: string) => {
+    const newNames = clone(names);
+    newNames[index] = value;
+
+    setNames(newNames);
+  };
+
+  const onChangeBotId = (index: 0 | 1 | 2 | 3) => setBotPlayerId(index);
+
+  const onClickPlayersNamesNextStep = () => setStatus(Status.CardsSelection);
+  const classesDeck = classnames('demo-cards', deckFlex);
+  const classesContainer = classnames('demo-container', { 'demo-center': isPlayersNames });
 
   return (
     <HelmetProvider>
@@ -61,34 +106,42 @@ const App = () => {
       </Helmet>
       <div className="main">
         <h1>Manille</h1>
-        <button onClick={() => setHorizontalSpace(!horizontalSpace)}>Change layout table</button>
-        <button onClick={() => setExpandDeck(!expandDeck)}>Change layout deck</button>
-        {botsCards.length === CARDS_PER_PLAYER && <div>Perfect, let's start</div>}
-        {botsCards.length < CARDS_PER_PLAYER && <div>Not enough cards for the bot</div>}
-        {botsCards.length > CARDS_PER_PLAYER && <div>Too many cards for the bot</div>}
-        <div className="demo-container">
-          <PlayingSpace cards={playerCards} className={`${tableFlex} demo-space`} horizontal={horizontalSpace} />
-          <div className={`${deckFlex} demo-cards`}>
-            <h2>All cards</h2>
-            <PlayingDeck
-              botsCards={botsCards}
-              cards={generateDeck()}
-              displayMode={deckDisplayMode}
-              onClick={(cardRank?: CardRank, cardSuit?: CardSuit) => {
-                // TODO: code function in manille package
-                const hasCard = botsCards.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
-                if (hasCard) {
-                  const newBotsCards = botsCards.filter(
-                    (card: Card) => card.rank !== cardRank || card.suit !== cardSuit
-                  );
-
-                  setBotsCards(newBotsCards);
-                } else if (cardRank && cardSuit) {
-                  setBotsCards([...botsCards, { rank: cardRank, suit: cardSuit }]);
-                }
-              }}
+        {isPlay && (
+          <>
+            <button className="demo-button" onClick={() => setHorizontalSpace(!horizontalSpace)}>
+              Change table layout
+            </button>
+            <button className="demo-button" onClick={() => setExpandDeck(!expandDeck)}>
+              Change deck layout
+            </button>
+          </>
+        )}
+        <div className={classesContainer}>
+          {isPlay && (
+            <>
+              <PlayingSpace
+                botPlayerId={botPlayerId}
+                cards={playerCards}
+                className={`${tableFlex} demo-space`}
+                horizontal={horizontalSpace}
+                names={names}
+              />
+              <div className={classesDeck}>
+                <h2>All cards</h2>
+                <PlayingDeck botsCards={botsCards} displayMode={deckDisplayMode} cards={generateDeck()} />
+              </div>
+            </>
+          )}
+          {isCardsSelection && <CardSelection botsCards={botsCards} onClickCard={onClickCardSelection} />}
+          {isPlayersNames && (
+            <PlayersNames
+              botPlayerId={botPlayerId}
+              names={names}
+              onClickButton={onClickPlayersNamesNextStep}
+              onChange={onChangePlayersNames}
+              onChangeBotId={onChangeBotId}
             />
-          </div>
+          )}
         </div>
       </div>
     </HelmetProvider>

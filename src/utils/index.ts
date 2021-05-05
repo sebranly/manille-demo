@@ -37,6 +37,23 @@ import SevenSpades from '../img/cards/spades/seven.svg';
 import CardBack from '../img/cards/back.svg';
 
 import { Card, CardRank, CardSuit } from 'manille/lib/types';
+import { NUMBER_PLAYERS } from '../constants';
+
+const getPlayerName = (names: string[], playerId: 0 | 1 | 2 | 3, botPlayerId: 0 | 1 | 2 | 3) => {
+  if (names.length !== NUMBER_PLAYERS) return '';
+
+  const isBot = playerId === botPlayerId;
+
+  if (!isBot) return names[playerId];
+
+  return `${names[playerId]} (you)`;
+};
+
+const getPlayerSuffix = (playerId: 0 | 1 | 2 | 3) => {
+  const suffixes = ['top', 'right', 'bottom', 'left'];
+
+  return suffixes[playerId];
+};
 
 const getCardLabelCommon = (card?: Card) => {
   const cardLabel = card && card.rank && card.suit ? `${card.rank} ${card.suit}` : 'back';
@@ -176,4 +193,4 @@ const getCardImg = (card?: Card) => {
   }
 };
 
-export { getCardLabel, getCardLabelDeck, getCardImg };
+export { getCardLabel, getPlayerName, getCardLabelDeck, getCardImg, getPlayerSuffix };
