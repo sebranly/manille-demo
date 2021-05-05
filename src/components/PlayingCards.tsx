@@ -14,8 +14,8 @@ const PlayingCards: React.FC<PlayingCardsProps> = (props) => {
   if (cards.length === 0) return null;
 
   if (displayMode === 4) {
-    const [card1, card2, card3, card4, ...lastCards] = cards;
-    const firstCards = [card1, card2, card3, card4];
+    const [card0, card1, card2, card3, ...lastCards] = cards;
+    const firstCards = [card0, card1, card2, card3];
 
     return (
       <>
@@ -32,22 +32,22 @@ const PlayingCards: React.FC<PlayingCardsProps> = (props) => {
       </>
     );
   } else if (displayMode === 2) {
-    const [card1, card2, card3, card4, card5, card6, ...lastCards] = cards;
+    const [card0, card1, card2, card3, card4, card5, ...lastCards] = cards;
 
     return (
       <>
         <div className="demo-cards">
-          {[card1, card2].map((card?: Card) => (
+          {[card0, card1].map((card?: Card) => (
             <PlayingCard card={card} className="width-four-cards" />
           ))}
         </div>
         <div className="demo-cards">
-          {[card3, card4].map((card?: Card) => (
+          {[card2, card3].map((card?: Card) => (
             <PlayingCard card={card} className="width-four-cards" />
           ))}
         </div>
         <div className="demo-cards">
-          {[card5, card6].map((card?: Card) => (
+          {[card4, card5].map((card?: Card) => (
             <PlayingCard card={card} className="width-four-cards" />
           ))}
         </div>

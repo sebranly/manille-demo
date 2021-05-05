@@ -14,33 +14,33 @@ const PlayingSpace: React.FC<PlayingSpaceProps> = (props) => {
 
   if (cards.length !== 4) return null;
 
-  const [playerCards1, playerCards2, playerCards3, playerCards4] = cards;
+  const [playerCards0, playerCards1, playerCards2, playerCards3] = cards;
 
   if (!horizontal) {
     return (
       <div className={className}>
         <div className="demo-container">
           <div className="demo-player demo-player-left flex-one flex-center">
-            <h3>Player 4</h3>
-            <PlayingCards cards={playerCards4} displayMode={2} />
+            <h3>Player 3</h3>
+            <PlayingCards cards={playerCards3} displayMode={2} />
           </div>
 
           <div className="demo-container flex-column flex-one">
             <div className="demo-player demo-player-top flex-one">
-              <h3>Player 1</h3>
-              <PlayingCards cards={playerCards1} displayMode={4} />
+              <h3>Player 0</h3>
+              <PlayingCards cards={playerCards0} displayMode={4} />
             </div>
 
             <PlayingTable cards={[undefined, undefined, undefined, undefined]} />
 
             <div className="demo-player demo-player-bottom flex-one">
-              <h3>Player 3</h3>
-              <PlayingCards cards={playerCards3} displayMode={4} />
+              <h3>Player 2</h3>
+              <PlayingCards cards={playerCards2} displayMode={4} />
             </div>
           </div>
           <div className="demo-player demo-player-right flex-one flex-center">
-            <h3>Player 2</h3>
-            <PlayingCards cards={playerCards2} displayMode={2} />
+            <h3>Player 1</h3>
+            <PlayingCards cards={playerCards1} displayMode={2} />
           </div>
         </div>
       </div>
@@ -50,26 +50,26 @@ const PlayingSpace: React.FC<PlayingSpaceProps> = (props) => {
   return (
     <div className={className}>
       <div className="demo-player demo-player-top">
-        <h3>Player 1</h3>
-        <PlayingCards cards={playerCards1} />
+        <h3>Player 0</h3>
+        <PlayingCards cards={playerCards0} />
       </div>
 
       <div className="demo-container">
         <div className="demo-player demo-player-left flex-one">
-          <h3>Player 4</h3>
-          <PlayingCards cards={playerCards4} displayMode={4} />
+          <h3>Player 3</h3>
+          <PlayingCards cards={playerCards3} displayMode={4} />
         </div>
 
         <PlayingTable cards={[undefined, undefined, undefined, undefined]} />
 
         <div className="demo-player demo-player-right flex-one">
-          <h3>Player 2</h3>
-          <PlayingCards cards={playerCards2} displayMode={4} />
+          <h3>Player 1</h3>
+          <PlayingCards cards={playerCards1} displayMode={4} />
         </div>
       </div>
       <div className="demo-player demo-player-bottom">
-        <h3>Player 3</h3>
-        <PlayingCards cards={playerCards3} />
+        <h3>Player 2</h3>
+        <PlayingCards cards={playerCards2} />
       </div>
     </div>
   );

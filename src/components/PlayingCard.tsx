@@ -13,8 +13,8 @@ const PlayingCard: React.FC<PlayingCardProps> = (props) => {
   const { card, className, onClick } = props;
   const img = getCardImg(card);
   const alt = card ? `${card.rank} of ${card.suit}` : 'Card back';
-  const rank = card?.rank ?? undefined;
-  const suit = card?.suit ?? undefined;
+  const rank = card?.rank;
+  const suit = card?.suit;
   const classImg = classnames(`demo-card ${className}`);
 
   return (
