@@ -12,7 +12,7 @@ const PlayingTable: React.FC<PlayingTableProps> = (props) => {
 
   if (cards.length !== 4) return null;
 
-  const [playerCard1, playerCard2, playerCard3, playerCard4] = cards;
+  const [playerCard0, playerCard1, playerCard2, playerCard3] = cards;
 
   return (
     <div className="flex-one">
