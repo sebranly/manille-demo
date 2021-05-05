@@ -1,42 +1,62 @@
-import TenClubs from "../img/cards/clubs/ten.svg";
-import AceClubs from "../img/cards/clubs/ace.svg";
-import KingClubs from "../img/cards/clubs/king.svg";
-import QueenClubs from "../img/cards/clubs/queen.svg";
-import JackClubs from "../img/cards/clubs/jack.svg";
-import NineClubs from "../img/cards/clubs/nine.svg";
-import EightClubs from "../img/cards/clubs/eight.svg";
-import SevenClubs from "../img/cards/clubs/seven.svg";
+import TenClubs from '../img/cards/clubs/ten.svg';
+import AceClubs from '../img/cards/clubs/ace.svg';
+import KingClubs from '../img/cards/clubs/king.svg';
+import QueenClubs from '../img/cards/clubs/queen.svg';
+import JackClubs from '../img/cards/clubs/jack.svg';
+import NineClubs from '../img/cards/clubs/nine.svg';
+import EightClubs from '../img/cards/clubs/eight.svg';
+import SevenClubs from '../img/cards/clubs/seven.svg';
 
-import TenDiamonds from "../img/cards/diamonds/ten.svg";
-import AceDiamonds from "../img/cards/diamonds/ace.svg";
-import KingDiamonds from "../img/cards/diamonds/king.svg";
-import QueenDiamonds from "../img/cards/diamonds/queen.svg";
-import JackDiamonds from "../img/cards/diamonds/jack.svg";
-import NineDiamonds from "../img/cards/diamonds/nine.svg";
-import EightDiamonds from "../img/cards/diamonds/eight.svg";
-import SevenDiamonds from "../img/cards/diamonds/seven.svg";
+import TenDiamonds from '../img/cards/diamonds/ten.svg';
+import AceDiamonds from '../img/cards/diamonds/ace.svg';
+import KingDiamonds from '../img/cards/diamonds/king.svg';
+import QueenDiamonds from '../img/cards/diamonds/queen.svg';
+import JackDiamonds from '../img/cards/diamonds/jack.svg';
+import NineDiamonds from '../img/cards/diamonds/nine.svg';
+import EightDiamonds from '../img/cards/diamonds/eight.svg';
+import SevenDiamonds from '../img/cards/diamonds/seven.svg';
 
-import TenHearts from "../img/cards/hearts/ten.svg";
-import AceHearts from "../img/cards/hearts/ace.svg";
-import KingHearts from "../img/cards/hearts/king.svg";
-import QueenHearts from "../img/cards/hearts/queen.svg";
-import JackHearts from "../img/cards/hearts/jack.svg";
-import NineHearts from "../img/cards/hearts/nine.svg";
-import EightHearts from "../img/cards/hearts/eight.svg";
-import SevenHearts from "../img/cards/hearts/seven.svg";
+import TenHearts from '../img/cards/hearts/ten.svg';
+import AceHearts from '../img/cards/hearts/ace.svg';
+import KingHearts from '../img/cards/hearts/king.svg';
+import QueenHearts from '../img/cards/hearts/queen.svg';
+import JackHearts from '../img/cards/hearts/jack.svg';
+import NineHearts from '../img/cards/hearts/nine.svg';
+import EightHearts from '../img/cards/hearts/eight.svg';
+import SevenHearts from '../img/cards/hearts/seven.svg';
 
-import TenSpades from "../img/cards/spades/ten.svg";
-import AceSpades from "../img/cards/spades/ace.svg";
-import KingSpades from "../img/cards/spades/king.svg";
-import QueenSpades from "../img/cards/spades/queen.svg";
-import JackSpades from "../img/cards/spades/jack.svg";
-import NineSpades from "../img/cards/spades/nine.svg";
-import EightSpades from "../img/cards/spades/eight.svg";
-import SevenSpades from "../img/cards/spades/seven.svg";
+import TenSpades from '../img/cards/spades/ten.svg';
+import AceSpades from '../img/cards/spades/ace.svg';
+import KingSpades from '../img/cards/spades/king.svg';
+import QueenSpades from '../img/cards/spades/queen.svg';
+import JackSpades from '../img/cards/spades/jack.svg';
+import NineSpades from '../img/cards/spades/nine.svg';
+import EightSpades from '../img/cards/spades/eight.svg';
+import SevenSpades from '../img/cards/spades/seven.svg';
 
-import CardBack from "../img/cards/back.svg";
+import CardBack from '../img/cards/back.svg';
 
-import { Card, CardRank, CardSuit } from "manille/lib/types";
+import { Card, CardRank, CardSuit } from 'manille/lib/types';
+
+const getCardLabelCommon = (card?: Card) => {
+  const cardLabel = card && card.rank && card.suit ? `${card.rank} ${card.suit}` : 'back';
+
+  return cardLabel;
+};
+
+const getCardLabelDeck = (index: number, card?: Card) => {
+  const cardLabel = getCardLabelCommon(card);
+  const newCardLabel = `${cardLabel}:deck:${index}`;
+
+  return newCardLabel;
+};
+
+const getCardLabel = (index: number, playerId: number, card?: Card) => {
+  const cardLabel = getCardLabelCommon(card);
+  const newCardLabel = `${cardLabel}:p-id${playerId}:${index}`;
+
+  return newCardLabel;
+};
 
 const getCardImg = (card?: Card) => {
   const { Ten, Ace, King, Queen, Jack, Nine, Eight, Seven } = CardRank;
@@ -156,4 +176,4 @@ const getCardImg = (card?: Card) => {
   }
 };
 
-export { getCardImg };
+export { getCardLabel, getCardLabelDeck, getCardImg };
