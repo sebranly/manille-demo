@@ -6,7 +6,8 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { isMobile } from 'react-device-detect';
 
 import { Card, CardRank, CardSuit } from 'manille/lib/types';
-import { generateDeck, generateSuit, orderCards } from 'manille/lib/cards';
+import { initializeInfoCards } from 'manille/lib/ia';
+import { orderCards } from 'manille/lib/cards';
 
 import { PlayingSpace } from './components/PlayingSpace';
 import { PlayingDeck } from './components/PlayingDeck';
@@ -56,11 +57,13 @@ const App = () => {
   const isPlayersNames = status === Status.PlayersNames;
   const isPlay = status === Status.Play;
 
-  const { Clubs, Diamonds, Hearts, Spades } = CardSuit;
   const emptyHand = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
   const botsCardsDisplay = orderCards(botsCards);
   const playerCards: (Card | undefined)[][] = [emptyHand, emptyHand, emptyHand, emptyHand];
   playerCards[botPlayerId] = botsCardsDisplay;
+
+  // TODO: rename from bots to bot
+  const infoCards: Card[][] = initializeInfoCards(botsCards, botPlayerId);
 
   const onClickCardSelection = (cardRank?: CardRank, cardSuit?: CardSuit) => {
     if (isCardsSelection) {
@@ -128,7 +131,12 @@ const App = () => {
               />
               <div className={classesDeck}>
                 <h2>All cards</h2>
-                <PlayingDeck botsCards={botsCards} displayMode={deckDisplayMode} cards={generateDeck()} />
+                <PlayingDeck
+                  botsCards={botsCards}
+                  displayMode={deckDisplayMode}
+                  infoCards={infoCards}
+                  showOwners={true}
+                />
               </div>
             </>
           )}
