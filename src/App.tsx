@@ -68,13 +68,15 @@ const App = () => {
         const newBotsCards = botsCards.filter((card: Card) => card.rank !== cardRank || card.suit !== cardSuit);
 
         setBotsCards(newBotsCards);
+        if (newBotsCards.length === CARDS_PER_PLAYER) setStatus(Status.Play);
       } else if (cardRank && cardSuit) {
-        setBotsCards([...botsCards, { rank: cardRank, suit: cardSuit }]);
+        const newBotsCards = [...botsCards, { rank: cardRank, suit: cardSuit }];
+        setBotsCards(newBotsCards);
+        if (newBotsCards.length === CARDS_PER_PLAYER) setStatus(Status.Play);
       }
     }
   };
 
-  const onClickCardSelectionNextStep = () => setStatus(Status.Play);
   const onClickPlayersNamesNextStep = () => setStatus(Status.CardsSelection);
   const classesDeck = classnames('demo-cards', deckFlex);
   const classesContainer = classnames('demo-container', { 'demo-center': isPlayersNames });
@@ -118,13 +120,7 @@ const App = () => {
               </div>
             </>
           )}
-          {isCardsSelection && (
-            <CardSelection
-              botsCards={botsCards}
-              onClickCard={onClickCardSelection}
-              onClickButton={onClickCardSelectionNextStep}
-            />
-          )}
+          {isCardsSelection && <CardSelection botsCards={botsCards} onClickCard={onClickCardSelection} />}
           {isPlayersNames && (
             <PlayersNames
               names={names}
