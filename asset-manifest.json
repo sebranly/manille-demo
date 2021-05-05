@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/manille-demo/static/css/main.67b11799.chunk.css",
-    "main.js": "/manille-demo/static/js/main.15441b80.chunk.js",
-    "main.js.map": "/manille-demo/static/js/main.15441b80.chunk.js.map",
+    "main.css": "/manille-demo/static/css/main.993fabc3.chunk.css",
+    "main.js": "/manille-demo/static/js/main.3ba12594.chunk.js",
+    "main.js.map": "/manille-demo/static/js/main.3ba12594.chunk.js.map",
     "runtime-main.js": "/manille-demo/static/js/runtime-main.2bb4be0e.js",
     "runtime-main.js.map": "/manille-demo/static/js/runtime-main.2bb4be0e.js.map",
     "static/css/2.9233ae65.chunk.css": "/manille-demo/static/css/2.9233ae65.chunk.css",
-    "static/js/2.60b7fb88.chunk.js": "/manille-demo/static/js/2.60b7fb88.chunk.js",
-    "static/js/2.60b7fb88.chunk.js.map": "/manille-demo/static/js/2.60b7fb88.chunk.js.map",
+    "static/js/2.e9c15f75.chunk.js": "/manille-demo/static/js/2.e9c15f75.chunk.js",
+    "static/js/2.e9c15f75.chunk.js.map": "/manille-demo/static/js/2.e9c15f75.chunk.js.map",
     "index.html": "/manille-demo/index.html",
-    "precache-manifest.961a66d9f92bb47a87e93554f0a84af2.js": "/manille-demo/precache-manifest.961a66d9f92bb47a87e93554f0a84af2.js",
+    "precache-manifest.94d08beee8bd5d9b9cfa030085b60e44.js": "/manille-demo/precache-manifest.94d08beee8bd5d9b9cfa030085b60e44.js",
     "service-worker.js": "/manille-demo/service-worker.js",
     "static/css/2.9233ae65.chunk.css.map": "/manille-demo/static/css/2.9233ae65.chunk.css.map",
-    "static/css/main.67b11799.chunk.css.map": "/manille-demo/static/css/main.67b11799.chunk.css.map",
-    "static/js/2.60b7fb88.chunk.js.LICENSE.txt": "/manille-demo/static/js/2.60b7fb88.chunk.js.LICENSE.txt",
+    "static/css/main.993fabc3.chunk.css.map": "/manille-demo/static/css/main.993fabc3.chunk.css.map",
+    "static/js/2.e9c15f75.chunk.js.LICENSE.txt": "/manille-demo/static/js/2.e9c15f75.chunk.js.LICENSE.txt",
     "static/media/ace.svg": "/manille-demo/static/media/ace.c88cac08.svg",
     "static/media/back.svg": "/manille-demo/static/media/back.63f6b736.svg",
     "static/media/eight.svg": "/manille-demo/static/media/eight.af7d286c.svg",
@@ -27,8 +27,8 @@
   "entrypoints": [
     "static/js/runtime-main.2bb4be0e.js",
     "static/css/2.9233ae65.chunk.css",
-    "static/js/2.60b7fb88.chunk.js",
-    "static/css/main.67b11799.chunk.css",
-    "static/js/main.15441b80.chunk.js"
+    "static/js/2.e9c15f75.chunk.js",
+    "static/css/main.993fabc3.chunk.css",
+    "static/js/main.3ba12594.chunk.js"
   ]
 }
