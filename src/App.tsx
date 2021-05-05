@@ -5,16 +5,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { isMobile } from 'react-device-detect';
 
-import { CardSuit } from 'manille/lib/types';
+import { Card, CardRank, CardSuit } from 'manille/lib/types';
 import { generateDeck, generateSuit } from 'manille/lib/cards';
 
-import { PlayingCards } from './components/PlayingCards';
 import { PlayingSpace } from './components/PlayingSpace';
 import { PlayingDeck } from './components/PlayingDeck';
 
 const App = () => {
   const [horizontalSpace, setHorizontalSpace] = React.useState(true);
   const [expandDeck, setExpandDeck] = React.useState(true);
+  const [botsCards, setBotsCards] = React.useState<Card[]>([]);
+  const [start, setStart] = React.useState(false);
 
   const tableFlex = expandDeck ? 'flex-three' : 'flex-two';
   const deckFlex = expandDeck ? 'flex-two' : 'flex-one';
@@ -59,11 +60,30 @@ const App = () => {
         <h1>Manille</h1>
         <button onClick={() => setHorizontalSpace(!horizontalSpace)}>Change layout table</button>
         <button onClick={() => setExpandDeck(!expandDeck)}>Change layout deck</button>
+        {botsCards.length === 8 && <button onClick={() => setStart(true)}>Start!</button>}
+        {botsCards.length < 8 && <div>Not enough cards for the bot</div>}
+        {botsCards.length > 8 && <div>Too many cards for the bot</div>}
         <div className="demo-container">
           <PlayingSpace cards={playerCards} className={`${tableFlex} demo-space`} horizontal={horizontalSpace} />
           <div className={`${deckFlex} demo-cards`}>
             <h2>All cards</h2>
-            <PlayingDeck cards={generateDeck()} displayMode={deckDisplayMode} />
+            <PlayingDeck
+              botsCards={botsCards}
+              cards={generateDeck()}
+              displayMode={deckDisplayMode}
+              onClick={(cardRank?: CardRank, cardSuit?: CardSuit) => {
+                const hasCard = botsCards.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
+                if (hasCard) {
+                  const newBotsCards = botsCards.filter(
+                    (card: Card) => card.rank !== cardRank || card.suit !== cardSuit
+                  );
+
+                  setBotsCards(newBotsCards);
+                } else if (cardRank && cardSuit) {
+                  setBotsCards([...botsCards, { rank: cardRank, suit: cardSuit }]);
+                }
+              }}
+            />
           </div>
         </div>
       </div>
