@@ -6,6 +6,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { isMobile } from 'react-device-detect';
 
 import { Card, CardRank, CardSuit, InfoSuitHighest } from 'manille/lib/types';
+import { getCardsPoints } from 'manille/lib/scores';
 import { initializeInfoCards, initializeInfoSuitHighest, updateInfoCards, updateInfoSuitHighest } from 'manille/lib/ia';
 import { generateSuit, orderCards } from 'manille/lib/cards';
 import { getLeaderFold } from 'manille/lib/game';
@@ -22,6 +23,7 @@ import { PlayersNames } from './components/PlayersNames';
 // TODO: import deeper
 import { clone } from 'lodash';
 import { TrumpSuitSelection } from './components/TrumpSuitSelection';
+import { getPlayerName } from './utils';
 
 const App = () => {
   const [horizontalSpace, setHorizontalSpace] = React.useState(true);
@@ -35,9 +37,11 @@ const App = () => {
   const [startingPlayerId, setStartingPlayerId] = React.useState<0 | 1 | 2 | 3>(0);
   const [allPlayedCards, setAllPlayedCards] = React.useState<Card[]>([]);
   const [playedCards, setPlayedCards] = React.useState<Card[]>([]);
+  const [logs, setLogs] = React.useState<string[]>(['Beginning of game']);
   // TODO: rename from bots to bot
   const [infoSuitHighest, setInfoSuitHighest] = React.useState<InfoSuitHighest[]>(initializeInfoSuitHighest());
   const [infoCards, setInfoCards] = React.useState<Card[][]>(initializeInfoCards(botsCards, botPlayerId));
+  const [playerPlayedCards, setPlayerPlayedCards] = React.useState<Card[][]>([[], [], [], []]);
   const [remainingCards, setRemainingCards] = React.useState<number[]>([
     CARDS_PER_PLAYER,
     CARDS_PER_PLAYER,
@@ -104,17 +108,23 @@ const App = () => {
 
   const onClickCardPlay = (cardRank?: CardRank, cardSuit?: CardSuit) => {
     if (cardRank && cardSuit) {
-      const hasCard = allPlayedCards.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
+      const hasPlayedCard = allPlayedCards.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
+      const infoCardsPlayer = infoCards[currentPlayerId];
+      const canPlayCard = infoCardsPlayer.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
 
-      // TODO: add protection against not a possible card for player as well
-      if (!hasCard) {
-        const newAllPlayedCards = [...allPlayedCards, { rank: cardRank, suit: cardSuit }];
+      if (!hasPlayedCard && canPlayCard) {
+        const newPlayerPlayedCards = clone(playerPlayedCards);
+        const card = { rank: cardRank, suit: cardSuit };
+        newPlayerPlayedCards[currentPlayerId].push(card);
+        setPlayerPlayedCards(newPlayerPlayedCards);
+
+        const newAllPlayedCards = [...allPlayedCards, card];
         const newRemainingCards = clone(remainingCards);
         newRemainingCards[currentPlayerId]--;
         setRemainingCards(newRemainingCards);
         setAllPlayedCards(newAllPlayedCards);
 
-        const newPlayedCards = [...playedCards, { rank: cardRank, suit: cardSuit }];
+        const newPlayedCards = [...playedCards, card];
         const newInfoSuitHighest = updateInfoSuitHighest(infoSuitHighest, newPlayedCards, startingPlayerId, trumpSuit);
 
         // TODO: length should be calculated through manille
@@ -125,6 +135,7 @@ const App = () => {
           botPlayerId,
           newRemainingCards
         );
+
         console.log('🚀 ~ file: App.tsx ~ line 110 ~ onClickCardPlay ~ InfoCards', newInfoCards);
 
         setInfoSuitHighest(newInfoSuitHighest);
@@ -137,6 +148,8 @@ const App = () => {
           const castLeaderId = leaderId as 0 | 1 | 2 | 3;
           setStartingPlayerId(castLeaderId);
           setCurrentPlayerId(castLeaderId);
+          const points = getCardsPoints(newPlayedCards);
+          setLogs([...logs, `${getPlayerName(names, castLeaderId, botPlayerId)} scored ${points} points`]);
 
           setPlayedCards([]);
         } else {
@@ -212,6 +225,7 @@ const App = () => {
                   showOwners={true}
                   onClick={onClickCardPlay}
                   allPlayedCards={allPlayedCards}
+                  playerPlayedCards={playerPlayedCards}
                 />
               </div>
             </>
@@ -227,6 +241,16 @@ const App = () => {
             />
           )}
         </div>{' '}
+        <div>
+          {isPlay &&
+            logs.map((log: string, index: number) => {
+              return (
+                <div className="" key={index}>
+                  {log}
+                </div>
+              );
+            })}
+        </div>
         {isTrumpSuitStep && (
           <TrumpSuitSelection
             botPlayerId={botPlayerId}

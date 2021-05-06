@@ -10,6 +10,7 @@ export interface PlayingDeckProps {
   botsCards: Card[];
   allPlayedCards?: Card[];
   infoCards?: Card[][];
+  playerPlayedCards?: Card[][];
   className?: string;
   displayMode?: 4 | 8;
   showOwners?: boolean;
@@ -17,7 +18,15 @@ export interface PlayingDeckProps {
 }
 
 const PlayingDeck: React.FC<PlayingDeckProps> = (props) => {
-  const { allPlayedCards, botsCards, displayMode = 8, infoCards, onClick, showOwners = false } = props;
+  const {
+    allPlayedCards,
+    playerPlayedCards,
+    botsCards,
+    displayMode = 8,
+    infoCards,
+    onClick,
+    showOwners = false
+  } = props;
   const cards = generateDeck();
 
   const classCard = displayMode === 8 ? 'width-eight-cards' : 'width-four-cards';
@@ -38,16 +47,28 @@ const PlayingDeck: React.FC<PlayingDeckProps> = (props) => {
           'demo-card-used': (!showOwners && botHasCard) || (showOwners && hasCard),
           'demo-card-player-top':
             showOwners &&
-            infoCards![0].some((infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit),
+            (infoCards![0].some((infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit) ||
+              playerPlayedCards![0].some(
+                (infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit
+              )),
           'demo-card-player-right':
             showOwners &&
-            infoCards![1].some((infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit),
+            (infoCards![1].some((infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit) ||
+              playerPlayedCards![1].some(
+                (infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit
+              )),
           'demo-card-player-bottom':
             showOwners &&
-            infoCards![2].some((infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit),
+            (infoCards![2].some((infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit) ||
+              playerPlayedCards![2].some(
+                (infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit
+              )),
           'demo-card-player-left':
             showOwners &&
-            infoCards![3].some((infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit)
+            (infoCards![3].some((infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit) ||
+              playerPlayedCards![3].some(
+                (infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit
+              ))
         });
 
         return <PlayingCard card={card} className={classes} key={getCardLabelDeck(index, card)} onClick={onClick} />;
