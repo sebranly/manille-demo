@@ -39,7 +39,6 @@ const PlayingSpace: React.FC<PlayingSpaceProps> = (props) => {
     const id = (startingPlayerId + i) % NUMBER_PLAYERS;
     cardsTable[id] = playedCards[i];
   }
-  console.log('🚀 ~ file: PlayingSpace.tsx ~ line 41 ~ cardsTable', cardsTable);
 
   if (!horizontal) {
     return (

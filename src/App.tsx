@@ -21,7 +21,7 @@ import classnames from 'classnames';
 import { PlayersNames } from './components/PlayersNames';
 
 // TODO: import deeper
-import { clone } from 'lodash';
+import { clone, reverse } from 'lodash';
 import { TrumpSuitSelection } from './components/TrumpSuitSelection';
 import { getPlayerName } from './utils';
 
@@ -41,6 +41,8 @@ const App = () => {
   // TODO: rename from bots to bot
   const [infoSuitHighest, setInfoSuitHighest] = React.useState<InfoSuitHighest[]>(initializeInfoSuitHighest());
   const [infoCards, setInfoCards] = React.useState<Card[][]>(initializeInfoCards(botsCards, botPlayerId));
+
+  // TODO: name is awful and redundant
   const [playerPlayedCards, setPlayerPlayedCards] = React.useState<Card[][]>([[], [], [], []]);
   const [remainingCards, setRemainingCards] = React.useState<number[]>([
     CARDS_PER_PLAYER,
@@ -86,7 +88,18 @@ const App = () => {
   const emptyHand = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
   const botsCardsDisplay = orderCards(botsCards);
   const playerCards: (Card | undefined)[][] = [emptyHand, emptyHand, emptyHand, emptyHand];
-  playerCards[botPlayerId] = botsCardsDisplay;
+
+  for (let i = 0; i < NUMBER_PLAYERS; i++) {
+    if (i === botPlayerId) playerCards[i] = botsCardsDisplay;
+    else {
+      const knownCards = reverse(clone(playerPlayedCards[i]));
+      const unknownCardsLength = CARDS_PER_PLAYER - knownCards.length;
+      const unknownCards = emptyHand.slice(0, unknownCardsLength);
+      const cardsDisplay = [...unknownCards, ...knownCards];
+
+      playerCards[i] = cardsDisplay;
+    }
+  }
 
   const onClickCardSelection = (cardRank?: CardRank, cardSuit?: CardSuit) => {
     if (isCardsSelection) {
