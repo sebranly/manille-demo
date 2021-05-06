@@ -72,7 +72,8 @@ body {
 }
 
 .demo-current-player {
-  font-weight: bold;
+  color: white;
+  text-decoration: underline;
 }
 
 .margin-auto {

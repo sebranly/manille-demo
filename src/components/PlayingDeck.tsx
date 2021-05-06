@@ -8,6 +8,7 @@ import { NUMBER_PLAYERS } from '../constants';
 
 export interface PlayingDeckProps {
   botsCards: Card[];
+  allPlayedCards?: Card[];
   infoCards?: Card[][];
   className?: string;
   displayMode?: 4 | 8;
@@ -16,7 +17,7 @@ export interface PlayingDeckProps {
 }
 
 const PlayingDeck: React.FC<PlayingDeckProps> = (props) => {
-  const { botsCards, displayMode = 8, infoCards, onClick, showOwners = false } = props;
+  const { allPlayedCards, botsCards, displayMode = 8, infoCards, onClick, showOwners = false } = props;
   const cards = generateDeck();
 
   const classCard = displayMode === 8 ? 'width-eight-cards' : 'width-four-cards';
@@ -28,10 +29,13 @@ const PlayingDeck: React.FC<PlayingDeckProps> = (props) => {
       {cards.map((card: Card, index: number) => {
         // TODO: code function in manille package
         const botHasCard = botsCards.some((botCard: Card) => card.rank === botCard.rank && card.suit === botCard.suit);
+        const hasCard =
+          allPlayedCards &&
+          allPlayedCards.some((playedCard: Card) => card.rank === playedCard.rank && card.suit === playedCard.suit);
 
         // TODO: factorize
         const classes = classnames(classCard, {
-          'demo-card-used': !showOwners && botHasCard,
+          'demo-card-used': (!showOwners && botHasCard) || (showOwners && hasCard),
           'demo-card-player-top':
             showOwners &&
             infoCards![0].some((infoCard: Card) => card.rank === infoCard.rank && card.suit === infoCard.suit),
