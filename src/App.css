@@ -71,6 +71,10 @@ body {
   max-width: 50%;
 }
 
+.demo-current-player {
+  font-weight: bold;
+}
+
 .margin-auto {
   margin: auto;
 }

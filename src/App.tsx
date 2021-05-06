@@ -7,7 +7,7 @@ import { isMobile } from 'react-device-detect';
 
 import { Card, CardRank, CardSuit } from 'manille/lib/types';
 import { initializeInfoCards } from 'manille/lib/ia';
-import { orderCards } from 'manille/lib/cards';
+import { generateSuit, orderCards } from 'manille/lib/cards';
 
 import { PlayingSpace } from './components/PlayingSpace';
 import { PlayingDeck } from './components/PlayingDeck';
@@ -25,7 +25,8 @@ import { TrumpSuitSelection } from './components/TrumpSuitSelection';
 const App = () => {
   const [horizontalSpace, setHorizontalSpace] = React.useState(true);
   const [expandDeck, setExpandDeck] = React.useState(true);
-  const [botsCards, setBotsCards] = React.useState<Card[]>([]);
+  // TODO: put empty again
+  const [botsCards, setBotsCards] = React.useState<Card[]>(generateSuit(CardSuit.Clubs));
   const [names, setNames] = React.useState(['Player 1', 'Player 2', 'Player 3', 'Player 4']);
   const [status, setStatus] = React.useState(Status.TrumpSuit);
   const [botPlayerId, setBotPlayerId] = React.useState<0 | 1 | 2 | 3>(2);
@@ -133,6 +134,7 @@ const App = () => {
             <>
               <PlayingSpace
                 botPlayerId={botPlayerId}
+                currentPlayerId={currentPlayerId}
                 cards={playerCards}
                 className={`${tableFlex} demo-space`}
                 horizontal={horizontalSpace}
