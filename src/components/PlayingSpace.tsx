@@ -13,14 +13,33 @@ export interface PlayingSpaceProps {
   names: string[];
   botPlayerId: 0 | 1 | 2 | 3;
   currentPlayerId: 0 | 1 | 2 | 3;
+  startingPlayerId: 0 | 1 | 2 | 3;
+  playedCards: Card[];
 }
 
 const PlayingSpace: React.FC<PlayingSpaceProps> = (props) => {
-  const { botPlayerId, className, cards, horizontal = true, currentPlayerId, names } = props;
+  const {
+    botPlayerId,
+    startingPlayerId,
+    className,
+    cards,
+    playedCards,
+    horizontal = true,
+    currentPlayerId,
+    names
+  } = props;
 
   if (cards.length !== NUMBER_PLAYERS || names.length !== NUMBER_PLAYERS) return null;
 
   const [playerCards0, playerCards1, playerCards2, playerCards3] = cards;
+
+  const cardsTable: (Card | undefined)[] = [undefined, undefined, undefined, undefined];
+  for (let i = 0; i < playedCards.length; i++) {
+    // TODO: use package instead
+    const id = (startingPlayerId + i) % NUMBER_PLAYERS;
+    cardsTable[id] = playedCards[i];
+  }
+  console.log('🚀 ~ file: PlayingSpace.tsx ~ line 41 ~ cardsTable', cardsTable);
 
   if (!horizontal) {
     return (
@@ -37,7 +56,7 @@ const PlayingSpace: React.FC<PlayingSpaceProps> = (props) => {
               <PlayingCards cards={playerCards0} displayMode={4} playerId={0} />
             </div>
 
-            <PlayingTable cards={[undefined, undefined, undefined, undefined]} />
+            <PlayingTable cards={cardsTable} />
 
             <div className="demo-player demo-player-bottom flex-one">
               <PlayerName names={names} playerId={2} currentPlayerId={currentPlayerId} botPlayerId={botPlayerId} />
@@ -66,7 +85,7 @@ const PlayingSpace: React.FC<PlayingSpaceProps> = (props) => {
           <PlayingCards cards={playerCards3} displayMode={4} playerId={3} />
         </div>
 
-        <PlayingTable cards={[undefined, undefined, undefined, undefined]} />
+        <PlayingTable cards={cardsTable} />
 
         <div className="demo-player demo-player-right flex-one">
           <PlayerName names={names} playerId={1} currentPlayerId={currentPlayerId} botPlayerId={botPlayerId} />

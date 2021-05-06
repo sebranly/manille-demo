@@ -196,6 +196,8 @@ const App = () => {
               <PlayingSpace
                 botPlayerId={botPlayerId}
                 currentPlayerId={currentPlayerId}
+                startingPlayerId={startingPlayerId}
+                playedCards={playedCards}
                 cards={playerCards}
                 className={`${tableFlex} demo-space`}
                 horizontal={horizontalSpace}
