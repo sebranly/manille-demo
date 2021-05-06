@@ -26,10 +26,9 @@ import { TrumpSuitSelection } from './components/TrumpSuitSelection';
 const App = () => {
   const [horizontalSpace, setHorizontalSpace] = React.useState(true);
   const [expandDeck, setExpandDeck] = React.useState(true);
-  // TODO: put empty again
-  const [botsCards, setBotsCards] = React.useState<Card[]>(generateSuit(CardSuit.Clubs));
+  const [botsCards, setBotsCards] = React.useState<Card[]>([]);
   const [names, setNames] = React.useState(['Player 1', 'Player 2', 'Player 3', 'Player 4']);
-  const [status, setStatus] = React.useState(Status.TrumpSuit);
+  const [status, setStatus] = React.useState(Status.PlayersNames);
   const [botPlayerId, setBotPlayerId] = React.useState<0 | 1 | 2 | 3>(2);
   const [trumpSuit, setTrumpSuit] = React.useState<false | CardSuit>(false);
   const [currentPlayerId, setCurrentPlayerId] = React.useState<0 | 1 | 2 | 3>(0);
@@ -45,6 +44,10 @@ const App = () => {
     CARDS_PER_PLAYER,
     CARDS_PER_PLAYER
   ]);
+
+  React.useEffect(() => {
+    setInfoCards(initializeInfoCards(botsCards, botPlayerId));
+  }, [botsCards, botPlayerId]);
 
   const tableFlex = expandDeck ? 'flex-three' : 'flex-two';
   const deckFlex = expandDeck ? 'flex-two' : 'flex-one';
