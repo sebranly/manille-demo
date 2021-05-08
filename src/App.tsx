@@ -41,7 +41,7 @@ const App = () => {
   const [infoSuitHighest, setInfoSuitHighest] = React.useState<InfoSuitHighest[]>(initializeInfoSuitHighest());
   const [infoCards, setInfoCards] = React.useState<Card[][]>(initializeInfoCards(botCards, botPlayerId));
 
-  // TODO: name is awful and redundant
+  // TODO: name is awful and redundant. Use playedBy and playedAt from Card instead.
   const [playerPlayedCards, setPlayerPlayedCards] = React.useState<Card[][]>([[], [], [], []]);
   const [remainingCards, setRemainingCards] = React.useState<number[]>([
     CARDS_PER_PLAYER,
