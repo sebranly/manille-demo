@@ -15,13 +15,13 @@ import { PlayingSpace } from './components/PlayingSpace';
 import { PlayingDeck } from './components/PlayingDeck';
 import { CARDS_PER_PLAYER, NUMBER_PLAYERS } from './constants';
 
-import { Status } from './types';
+import { Step } from './types';
 import { CardSelection } from './components/CardSelection';
 import classnames from 'classnames';
 import { PlayersNames } from './components/PlayersNames';
 
-// TODO: import deeper
-import { clone, reverse } from 'lodash';
+import clone from 'lodash/clone';
+import reverse from 'lodash/reverse';
 import { TrumpSuitSelection } from './components/TrumpSuitSelection';
 import { getPlayerName } from './utils';
 
@@ -30,7 +30,7 @@ const App = () => {
   const [expandDeck, setExpandDeck] = React.useState(true);
   const [botCards, setBotCards] = React.useState<Card[]>([]);
   const [names, setNames] = React.useState(['Player 1', 'Player 2', 'Player 3', 'Player 4']);
-  const [status, setStatus] = React.useState(Status.PlayersNames);
+  const [step, setStep] = React.useState(Step.PlayersNames);
   const [botPlayerId, setBotPlayerId] = React.useState<0 | 1 | 2 | 3>(2);
   const [trumpSuit, setTrumpSuit] = React.useState<false | CardSuit>(false);
   const [currentPlayerId, setCurrentPlayerId] = React.useState<0 | 1 | 2 | 3>(0);
@@ -78,11 +78,10 @@ const App = () => {
     );
   }
 
-  // TODO: add step suffix to all
-  const isCardsSelection = status === Status.CardsSelection;
-  const isPlayersNames = status === Status.PlayersNames;
-  const isPlay = status === Status.Play;
-  const isTrumpSuitStep = status === Status.TrumpSuit;
+  const isCardsSelectionStep = step === Step.CardsSelection;
+  const isPlayersNamesStep = step === Step.PlayersNames;
+  const isPlayStep = step === Step.Play;
+  const isTrumpSuitStep = step === Step.TrumpSuit;
 
   const emptyHand = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
   const botCardsDisplay = orderCards(botCards);
@@ -101,7 +100,7 @@ const App = () => {
   }
 
   const onClickCardSelection = (cardRank?: CardRank, cardSuit?: CardSuit) => {
-    if (isCardsSelection) {
+    if (isCardsSelectionStep) {
       // TODO: code function in manille package
       const hasCard = botCards.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
 
@@ -110,7 +109,7 @@ const App = () => {
           ? botCards.filter((card: Card) => card.rank !== cardRank || card.suit !== cardSuit)
           : [...botCards, { rank: cardRank, suit: cardSuit }];
         setBotCards(newBotCards);
-        if (newBotCards.length === CARDS_PER_PLAYER) setStatus(Status.TrumpSuit);
+        if (newBotCards.length === CARDS_PER_PLAYER) setStep(Step.TrumpSuit);
       }
     }
   };
@@ -185,10 +184,10 @@ const App = () => {
   };
   const onChangeTrumpSuit = (suit: CardSuit | false) => setTrumpSuit(suit);
 
-  const onClickPlayersNamesNextStep = () => setStatus(Status.CardsSelection);
-  const onClickTrumpSuitSelectionNext = () => setStatus(Status.Play);
+  const onClickPlayersNamesNextStep = () => setStep(Step.CardsSelection);
+  const onClickTrumpSuitSelectionNext = () => setStep(Step.Play);
   const classesDeck = classnames('demo-cards', deckFlex);
-  const classesContainer = classnames('demo-container', { 'demo-center': isPlayersNames });
+  const classesContainer = classnames('demo-container', { 'demo-center': isPlayersNamesStep });
 
   return (
     <HelmetProvider>
@@ -204,7 +203,7 @@ const App = () => {
       </Helmet>
       <div className="main">
         <h1>Manille</h1>
-        {isPlay && (
+        {isPlayStep && (
           <>
             <button className="demo-button" onClick={() => setHorizontalSpace(!horizontalSpace)}>
               Change table layout
@@ -215,7 +214,7 @@ const App = () => {
           </>
         )}
         <div className={classesContainer}>
-          {isPlay && (
+          {isPlayStep && (
             <>
               <PlayingSpace
                 botPlayerId={botPlayerId}
@@ -241,8 +240,8 @@ const App = () => {
               </div>
             </>
           )}
-          {isCardsSelection && <CardSelection botCards={botCards} onClickCard={onClickCardSelection} />}
-          {isPlayersNames && (
+          {isCardsSelectionStep && <CardSelection botCards={botCards} onClickCard={onClickCardSelection} />}
+          {isPlayersNamesStep && (
             <PlayersNames
               botPlayerId={botPlayerId}
               names={names}
@@ -253,7 +252,7 @@ const App = () => {
           )}
         </div>{' '}
         <div>
-          {isPlay &&
+          {isPlayStep &&
             logs.map((log: string, index: number) => {
               return (
                 <div className="" key={index}>

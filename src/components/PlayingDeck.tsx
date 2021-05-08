@@ -31,7 +31,7 @@ const PlayingDeck: React.FC<PlayingDeckProps> = (props) => {
 
   const classCard = displayMode === 8 ? 'width-eight-cards' : 'width-four-cards';
 
-  if (showOwners && (!infoCards || infoCards.length !== NUMBER_PLAYERS)) return null;
+  if (showOwners && infoCards?.length !== NUMBER_PLAYERS) return null;
 
   return (
     <div className="demo-cards">
