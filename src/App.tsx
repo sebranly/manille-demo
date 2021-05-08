@@ -8,7 +8,7 @@ import { isMobile } from 'react-device-detect';
 import { Card, CardRank, CardSuit, InfoSuitHighest } from 'manille/lib/types';
 import { getCardsPoints } from 'manille/lib/scores';
 import { initializeInfoCards, initializeInfoSuitHighest, updateInfoCards, updateInfoSuitHighest } from 'manille/lib/ia';
-import { generateSuit, orderCards } from 'manille/lib/cards';
+import { orderCards } from 'manille/lib/cards';
 import { getLeaderFold } from 'manille/lib/game';
 
 import { PlayingSpace } from './components/PlayingSpace';
@@ -28,7 +28,7 @@ import { getPlayerName } from './utils';
 const App = () => {
   const [horizontalSpace, setHorizontalSpace] = React.useState(true);
   const [expandDeck, setExpandDeck] = React.useState(true);
-  const [botsCards, setBotsCards] = React.useState<Card[]>([]);
+  const [botCards, setBotCards] = React.useState<Card[]>([]);
   const [names, setNames] = React.useState(['Player 1', 'Player 2', 'Player 3', 'Player 4']);
   const [status, setStatus] = React.useState(Status.PlayersNames);
   const [botPlayerId, setBotPlayerId] = React.useState<0 | 1 | 2 | 3>(2);
@@ -38,9 +38,8 @@ const App = () => {
   const [allPlayedCards, setAllPlayedCards] = React.useState<Card[]>([]);
   const [playedCards, setPlayedCards] = React.useState<Card[]>([]);
   const [logs, setLogs] = React.useState<string[]>(['Beginning of game']);
-  // TODO: rename from bots to bot
   const [infoSuitHighest, setInfoSuitHighest] = React.useState<InfoSuitHighest[]>(initializeInfoSuitHighest());
-  const [infoCards, setInfoCards] = React.useState<Card[][]>(initializeInfoCards(botsCards, botPlayerId));
+  const [infoCards, setInfoCards] = React.useState<Card[][]>(initializeInfoCards(botCards, botPlayerId));
 
   // TODO: name is awful and redundant
   const [playerPlayedCards, setPlayerPlayedCards] = React.useState<Card[][]>([[], [], [], []]);
@@ -52,8 +51,8 @@ const App = () => {
   ]);
 
   React.useEffect(() => {
-    setInfoCards(initializeInfoCards(botsCards, botPlayerId));
-  }, [botsCards, botPlayerId]);
+    setInfoCards(initializeInfoCards(botCards, botPlayerId));
+  }, [botCards, botPlayerId]);
 
   const tableFlex = expandDeck ? 'flex-three' : 'flex-two';
   const deckFlex = expandDeck ? 'flex-two' : 'flex-one';
@@ -86,11 +85,11 @@ const App = () => {
   const isTrumpSuitStep = status === Status.TrumpSuit;
 
   const emptyHand = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
-  const botsCardsDisplay = orderCards(botsCards);
+  const botCardsDisplay = orderCards(botCards);
   const playerCards: (Card | undefined)[][] = [emptyHand, emptyHand, emptyHand, emptyHand];
 
   for (let i = 0; i < NUMBER_PLAYERS; i++) {
-    if (i === botPlayerId) playerCards[i] = botsCardsDisplay;
+    if (i === botPlayerId) playerCards[i] = botCardsDisplay;
     else {
       const knownCards = reverse(clone(playerPlayedCards[i]));
       const unknownCardsLength = CARDS_PER_PLAYER - knownCards.length;
@@ -104,17 +103,14 @@ const App = () => {
   const onClickCardSelection = (cardRank?: CardRank, cardSuit?: CardSuit) => {
     if (isCardsSelection) {
       // TODO: code function in manille package
-      const hasCard = botsCards.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
-      if (hasCard) {
-        const newBotsCards = botsCards.filter((card: Card) => card.rank !== cardRank || card.suit !== cardSuit);
+      const hasCard = botCards.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
 
-        setBotsCards(newBotsCards);
-        // TODO: factorize
-        if (newBotsCards.length === CARDS_PER_PLAYER) setStatus(Status.TrumpSuit);
-      } else if (cardRank && cardSuit) {
-        const newBotsCards = [...botsCards, { rank: cardRank, suit: cardSuit }];
-        setBotsCards(newBotsCards);
-        if (newBotsCards.length === CARDS_PER_PLAYER) setStatus(Status.TrumpSuit);
+      if (cardRank && cardSuit) {
+        const newBotCards = hasCard
+          ? botCards.filter((card: Card) => card.rank !== cardRank || card.suit !== cardSuit)
+          : [...botCards, { rank: cardRank, suit: cardSuit }];
+        setBotCards(newBotCards);
+        if (newBotCards.length === CARDS_PER_PLAYER) setStatus(Status.TrumpSuit);
       }
     }
   };
@@ -234,7 +230,7 @@ const App = () => {
               <div className={classesDeck}>
                 <h2>All cards</h2>
                 <PlayingDeck
-                  botsCards={botsCards}
+                  botCards={botCards}
                   displayMode={deckDisplayMode}
                   infoCards={infoCards}
                   showOwners={true}
@@ -245,7 +241,7 @@ const App = () => {
               </div>
             </>
           )}
-          {isCardsSelection && <CardSelection botsCards={botsCards} onClickCard={onClickCardSelection} />}
+          {isCardsSelection && <CardSelection botCards={botCards} onClickCard={onClickCardSelection} />}
           {isPlayersNames && (
             <PlayersNames
               botPlayerId={botPlayerId}

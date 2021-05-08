@@ -5,19 +5,19 @@ import { PlayingDeck } from './PlayingDeck';
 
 export interface CardSelectionProps {
   className?: string;
-  botsCards: Card[];
+  botCards: Card[];
   onClickCard: (cardRank?: CardRank, cardSuit?: CardSuit) => void;
 }
 
 const CardSelection: React.FC<CardSelectionProps> = (props) => {
-  const { className, botsCards, onClickCard } = props;
+  const { className, botCards, onClickCard } = props;
 
   const renderMessageSelection = () => {
-    if (botsCards.length === CARDS_PER_PLAYER) return null;
+    if (botCards.length === CARDS_PER_PLAYER) return null;
 
-    if (botsCards.length === 0) return <div>{`Please select your ${CARDS_PER_PLAYER} cards`}</div>;
+    if (botCards.length === 0) return <div>{`Please select your ${CARDS_PER_PLAYER} cards`}</div>;
 
-    const suffix = ` (${botsCards.length}/${CARDS_PER_PLAYER})`;
+    const suffix = ` (${botCards.length}/${CARDS_PER_PLAYER})`;
 
     return <div>{`Please keep selecting cards ${suffix}`}</div>;
   };
@@ -27,7 +27,7 @@ const CardSelection: React.FC<CardSelectionProps> = (props) => {
       <div className="demo-cards">
         <h2>Your cards</h2>
         {renderMessageSelection()}
-        <PlayingDeck botsCards={botsCards} onClick={onClickCard} />
+        <PlayingDeck botCards={botCards} onClick={onClickCard} />
       </div>
     </div>
   );

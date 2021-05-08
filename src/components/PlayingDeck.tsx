@@ -7,7 +7,7 @@ import { generateDeck } from 'manille/lib/cards';
 import { NUMBER_PLAYERS } from '../constants';
 
 export interface PlayingDeckProps {
-  botsCards: Card[];
+  botCards: Card[];
   allPlayedCards?: Card[];
   infoCards?: Card[][];
   playerPlayedCards?: Card[][];
@@ -21,7 +21,7 @@ const PlayingDeck: React.FC<PlayingDeckProps> = (props) => {
   const {
     allPlayedCards,
     playerPlayedCards,
-    botsCards,
+    botCards,
     displayMode = 8,
     infoCards,
     onClick,
@@ -37,7 +37,7 @@ const PlayingDeck: React.FC<PlayingDeckProps> = (props) => {
     <div className="demo-cards">
       {cards.map((card: Card, index: number) => {
         // TODO: code function in manille package
-        const botHasCard = botsCards.some((botCard: Card) => card.rank === botCard.rank && card.suit === botCard.suit);
+        const botHasCard = botCards.some((botCard: Card) => card.rank === botCard.rank && card.suit === botCard.suit);
         const hasCard =
           allPlayedCards &&
           allPlayedCards.some((playedCard: Card) => card.rank === playedCard.rank && card.suit === playedCard.suit);

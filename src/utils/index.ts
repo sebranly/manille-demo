@@ -44,9 +44,11 @@ const getPlayerName = (names: string[], playerId: 0 | 1 | 2 | 3, botPlayerId: 0 
 
   const isBot = playerId === botPlayerId;
 
-  if (!isBot) return names[playerId];
+  const playerName = names[playerId];
 
-  return `${names[playerId]} (you)`;
+  if (!isBot) return playerName;
+
+  return `${playerName} (you)`;
 };
 
 const getPlayerSuffix = (playerId: 0 | 1 | 2 | 3) => {
