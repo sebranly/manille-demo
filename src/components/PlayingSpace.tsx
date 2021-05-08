@@ -5,6 +5,7 @@ import { PlayingTable } from './PlayingTable';
 import { NUMBER_PLAYERS } from '../constants';
 import { getPlayerName } from '../utils';
 import { PlayerName } from './PlayerName';
+import { getPlayerId } from 'manille/lib/game';
 
 export interface PlayingSpaceProps {
   className?: string;
@@ -35,8 +36,7 @@ const PlayingSpace: React.FC<PlayingSpaceProps> = (props) => {
 
   const cardsTable: (Card | undefined)[] = [undefined, undefined, undefined, undefined];
   for (let i = 0; i < playedCards.length; i++) {
-    // TODO: use package instead
-    const id = (startingPlayerId + i) % NUMBER_PLAYERS;
+    const id = getPlayerId(startingPlayerId, i);
     cardsTable[id] = playedCards[i];
   }
 
