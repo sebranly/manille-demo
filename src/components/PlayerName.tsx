@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { getPlayerName } from '../utils';
 import classnames from 'classnames';
+import { PlayerId } from 'manille/lib/types';
 
 export interface PlayerNameProps {
   className?: string;
   names: string[];
-  botPlayerId: 0 | 1 | 2 | 3;
-  currentPlayerId: 0 | 1 | 2 | 3;
-  playerId: 0 | 1 | 2 | 3;
+  botPlayerId: PlayerId;
+  currentPlayerId: PlayerId;
+  playerId: PlayerId;
 }
 
 const PlayerName: React.FC<PlayerNameProps> = (props) => {

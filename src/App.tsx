@@ -5,11 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { isMobile } from 'react-device-detect';
 
-import { Card, CardRank, CardSuit, InfoSuitHighest } from 'manille/lib/types';
+import { Card, CardRank, CardSuit, InfoSuitHighest, PlayerId } from 'manille/lib/types';
 import { getCardsPoints } from 'manille/lib/scores';
 import { initializeInfoCards, initializeInfoSuitHighest, updateInfoCards, updateInfoSuitHighest } from 'manille/lib/ia';
-import { orderCards } from 'manille/lib/cards';
-import { getLeaderFold } from 'manille/lib/game';
+import { hasCard, orderCards } from 'manille/lib/cards';
+import { getLeaderFold, getPlayerId } from 'manille/lib/game';
 
 import { PlayingSpace } from './components/PlayingSpace';
 import { PlayingDeck } from './components/PlayingDeck';
@@ -31,10 +31,10 @@ const App = () => {
   const [botCards, setBotCards] = React.useState<Card[]>([]);
   const [names, setNames] = React.useState(['Player 1', 'Player 2', 'Player 3', 'Player 4']);
   const [step, setStep] = React.useState(Step.PlayersNames);
-  const [botPlayerId, setBotPlayerId] = React.useState<0 | 1 | 2 | 3>(2);
+  const [botPlayerId, setBotPlayerId] = React.useState<PlayerId>(2);
   const [trumpSuit, setTrumpSuit] = React.useState<false | CardSuit>(false);
-  const [currentPlayerId, setCurrentPlayerId] = React.useState<0 | 1 | 2 | 3>(0);
-  const [startingPlayerId, setStartingPlayerId] = React.useState<0 | 1 | 2 | 3>(0);
+  const [currentPlayerId, setCurrentPlayerId] = React.useState<PlayerId>(0);
+  const [startingPlayerId, setStartingPlayerId] = React.useState<PlayerId>(0);
   const [allPlayedCards, setAllPlayedCards] = React.useState<Card[]>([]);
   const [playedCards, setPlayedCards] = React.useState<Card[]>([]);
   const [logs, setLogs] = React.useState<string[]>(['Beginning of game']);
@@ -100,25 +100,24 @@ const App = () => {
   }
 
   const onClickCardSelection = (cardRank?: CardRank, cardSuit?: CardSuit) => {
-    if (isCardsSelectionStep) {
-      // TODO: code function in manille package
-      const hasCard = botCards.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
+    if (isCardsSelectionStep && cardRank && cardSuit) {
+      const botHasCard = hasCard(botCards, { rank: cardRank, suit: cardSuit });
+      const newBotCards = botHasCard
+        ? botCards.filter((card: Card) => card.rank !== cardRank || card.suit !== cardSuit)
+        : [...botCards, { rank: cardRank, suit: cardSuit }];
 
-      if (cardRank && cardSuit) {
-        const newBotCards = hasCard
-          ? botCards.filter((card: Card) => card.rank !== cardRank || card.suit !== cardSuit)
-          : [...botCards, { rank: cardRank, suit: cardSuit }];
-        setBotCards(newBotCards);
-        if (newBotCards.length === CARDS_PER_PLAYER) setStep(Step.TrumpSuit);
-      }
+      setBotCards(newBotCards);
+
+      if (newBotCards.length === CARDS_PER_PLAYER) setStep(Step.TrumpSuit);
     }
   };
 
   const onClickCardPlay = (cardRank?: CardRank, cardSuit?: CardSuit) => {
     if (cardRank && cardSuit) {
-      const hasPlayedCard = allPlayedCards.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
+      const card: Card = { rank: cardRank, suit: cardSuit };
+      const hasPlayedCard = hasCard(allPlayedCards, card);
       const infoCardsPlayer = infoCards[currentPlayerId];
-      const canPlayCard = infoCardsPlayer.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
+      const canPlayCard = hasCard(infoCardsPlayer, card);
 
       // TODO: use getPlayableCards and have clear UI
 
@@ -154,31 +153,33 @@ const App = () => {
         if (newPlayedCards.length === NUMBER_PLAYERS) {
           const leaderId = getLeaderFold(newPlayedCards, startingPlayerId, trumpSuit);
 
-          // TODO: fix it on the package level
-          const castLeaderId = leaderId as 0 | 1 | 2 | 3;
-          setStartingPlayerId(castLeaderId);
-          setCurrentPlayerId(castLeaderId);
-          const points = getCardsPoints(newPlayedCards);
-          setLogs([...logs, `${getPlayerName(names, castLeaderId, botPlayerId)} scored ${points} points`]);
+          if (leaderId !== -1) {
+            setStartingPlayerId(leaderId);
+            setCurrentPlayerId(leaderId);
+            const points = getCardsPoints(newPlayedCards);
+            setLogs([...logs, `${getPlayerName(names, leaderId, botPlayerId)} scored ${points} points`]);
 
-          setPlayedCards([]);
+            setPlayedCards([]);
+          }
         } else {
-          setCurrentPlayerId(((currentPlayerId + 1) % NUMBER_PLAYERS) as 0 | 1 | 2 | 3);
+          // TODO: rename first arg in `manille`
+          const newId = getPlayerId(currentPlayerId, 1);
+          setCurrentPlayerId(newId);
           setPlayedCards(newPlayedCards);
         }
       }
     }
   };
 
-  const onChangePlayersNames = (index: number, value: string) => {
+  const onChangePlayersNames = (index: PlayerId, value: string) => {
     const newNames = clone(names);
     newNames[index] = value;
 
     setNames(newNames);
   };
 
-  const onChangeBotId = (index: 0 | 1 | 2 | 3) => setBotPlayerId(index);
-  const onChangeCurrentPlayerId = (index: 0 | 1 | 2 | 3) => {
+  const onChangeBotId = (index: PlayerId) => setBotPlayerId(index);
+  const onChangeCurrentPlayerId = (index: PlayerId) => {
     setCurrentPlayerId(index);
     setStartingPlayerId(index);
   };

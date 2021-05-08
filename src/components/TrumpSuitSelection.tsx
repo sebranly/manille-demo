@@ -1,4 +1,4 @@
-import { CardSuit } from 'manille/lib/types';
+import { CardSuit, PlayerId } from 'manille/lib/types';
 import * as React from 'react';
 import { NUMBER_PLAYERS } from '../constants';
 import { getPlayerName, getPlayerSuffix } from '../utils';
@@ -7,10 +7,10 @@ export interface TrumpSuitSelectionProps {
   className?: string;
   onClickButton: () => void;
   onChangeTrumpSuit: (suit: CardSuit | false) => void;
-  onChangeCurrentPlayerId: (index: 0 | 1 | 2 | 3) => void;
-  botPlayerId: 0 | 1 | 2 | 3;
+  onChangeCurrentPlayerId: (index: PlayerId) => void;
+  botPlayerId: PlayerId;
   names: string[];
-  currentPlayerId: 0 | 1 | 2 | 3;
+  currentPlayerId: PlayerId;
   trumpSuit: CardSuit | false;
 }
 
@@ -31,14 +31,14 @@ const TrumpSuitSelection: React.FC<TrumpSuitSelectionProps> = (props) => {
   if (names.length !== NUMBER_PLAYERS) return null;
 
   // TODO: loop for 4
-  const allIds: (0 | 1 | 2 | 3)[] = [0, 1, 2, 3];
+  const allIds: PlayerId[] = [0, 1, 2, 3];
   const allSuits: (CardSuit | false)[] = [Clubs, Diamonds, Hearts, Spades, false];
 
   return (
     <>
       <div className="demo-container demo-half-width margin-auto">
         <div className="flex-one margin-auto text-align-left">
-          {allIds.map((id: 0 | 1 | 2 | 3) => {
+          {allIds.map((id: PlayerId) => {
             return (
               <div className="demo-margin-y demo-margin-x min" key={id}>
                 <input

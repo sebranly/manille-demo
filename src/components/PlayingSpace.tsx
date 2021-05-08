@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { Card } from 'manille/lib/types';
+import { Card, PlayerId } from 'manille/lib/types';
 import { PlayingCards } from './PlayingCards';
 import { PlayingTable } from './PlayingTable';
 import { NUMBER_PLAYERS } from '../constants';
-import { getPlayerName } from '../utils';
 import { PlayerName } from './PlayerName';
 import { getPlayerId } from 'manille/lib/game';
 
@@ -12,9 +11,9 @@ export interface PlayingSpaceProps {
   cards: (Card | undefined)[][];
   horizontal?: boolean;
   names: string[];
-  botPlayerId: 0 | 1 | 2 | 3;
-  currentPlayerId: 0 | 1 | 2 | 3;
-  startingPlayerId: 0 | 1 | 2 | 3;
+  botPlayerId: PlayerId;
+  currentPlayerId: PlayerId;
+  startingPlayerId: PlayerId;
   playedCards: Card[];
 }
 

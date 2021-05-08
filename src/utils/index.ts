@@ -36,10 +36,10 @@ import SevenSpades from '../img/cards/spades/seven.svg';
 
 import CardBack from '../img/cards/back.svg';
 
-import { Card, CardRank, CardSuit } from 'manille/lib/types';
+import { Card, CardRank, CardSuit, PlayerId } from 'manille/lib/types';
 import { NUMBER_PLAYERS } from '../constants';
 
-const getPlayerName = (names: string[], playerId: 0 | 1 | 2 | 3, botPlayerId: 0 | 1 | 2 | 3) => {
+const getPlayerName = (names: string[], playerId: PlayerId, botPlayerId: PlayerId) => {
   if (names.length !== NUMBER_PLAYERS) return '';
 
   const isBot = playerId === botPlayerId;
@@ -51,7 +51,7 @@ const getPlayerName = (names: string[], playerId: 0 | 1 | 2 | 3, botPlayerId: 0 
   return `${playerName} (you)`;
 };
 
-const getPlayerSuffix = (playerId: 0 | 1 | 2 | 3) => {
+const getPlayerSuffix = (playerId: PlayerId) => {
   const suffixes = ['top', 'right', 'bottom', 'left'];
 
   return suffixes[playerId];
@@ -70,7 +70,7 @@ const getCardLabelDeck = (index: number, card?: Card) => {
   return newCardLabel;
 };
 
-const getCardLabel = (index: number, playerId: number, card?: Card) => {
+const getCardLabel = (index: number, playerId: PlayerId, card?: Card) => {
   const cardLabel = getCardLabelCommon(card);
   const newCardLabel = `${cardLabel}:p-id${playerId}:${index}`;
 
