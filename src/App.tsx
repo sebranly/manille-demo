@@ -125,6 +125,8 @@ const App = () => {
       const infoCardsPlayer = infoCards[currentPlayerId];
       const canPlayCard = infoCardsPlayer.some((card: Card) => card.rank === cardRank && card.suit === cardSuit);
 
+      // TODO: use getPlayableCards and have clear UI
+
       if (!hasPlayedCard && canPlayCard) {
         const newPlayerPlayedCards = clone(playerPlayedCards);
         const card = { rank: cardRank, suit: cardSuit };
