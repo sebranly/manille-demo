@@ -14,7 +14,6 @@ const PlayingTable: React.FC<PlayingTableProps> = (props) => {
   if (cards.length !== NUMBER_PLAYERS) return null;
 
   const [playerCard0, playerCard1, playerCard2, playerCard3] = cards;
-  console.log('🚀 ~ file: PlayingTable.tsx ~ line 17 ~ cards', cards);
 
   return (
     <div className="flex-one">

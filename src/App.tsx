@@ -8,7 +8,7 @@ import { isMobile } from 'react-device-detect';
 import { Card, CardRank, CardSuit, InfoSuitHighest, PlayerId } from 'manille/lib/types';
 import { getCardsPoints } from 'manille/lib/scores';
 import { initializeInfoCards, initializeInfoSuitHighest, updateInfoCards, updateInfoSuitHighest } from 'manille/lib/ia';
-import { hasCard, orderCards } from 'manille/lib/cards';
+import { excludeCards, hasCard, orderCards } from 'manille/lib/cards';
 import { getLeaderFold, getPlayerId } from 'manille/lib/game';
 
 import { PlayingSpace } from './components/PlayingSpace';
@@ -101,10 +101,9 @@ const App = () => {
 
   const onClickCardSelection = (cardRank?: CardRank, cardSuit?: CardSuit) => {
     if (isCardsSelectionStep && cardRank && cardSuit) {
-      const botHasCard = hasCard(botCards, { rank: cardRank, suit: cardSuit });
-      const newBotCards = botHasCard
-        ? botCards.filter((card: Card) => card.rank !== cardRank || card.suit !== cardSuit)
-        : [...botCards, { rank: cardRank, suit: cardSuit }];
+      const card: Card = { rank: cardRank, suit: cardSuit };
+      const botHasCard = hasCard(botCards, card);
+      const newBotCards = botHasCard ? excludeCards(botCards, [card]) : [...botCards, card];
 
       setBotCards(newBotCards);
 
@@ -145,8 +144,6 @@ const App = () => {
           newRemainingCards
         );
 
-        console.log('🚀 ~ file: App.tsx ~ line 110 ~ onClickCardPlay ~ InfoCards', newInfoCards);
-
         setInfoSuitHighest(newInfoSuitHighest);
         setInfoCards(newInfoCards);
 
@@ -162,7 +159,6 @@ const App = () => {
             setPlayedCards([]);
           }
         } else {
-          // TODO: rename first arg in `manille`
           const newId = getPlayerId(currentPlayerId, 1);
           setCurrentPlayerId(newId);
           setPlayedCards(newPlayedCards);
