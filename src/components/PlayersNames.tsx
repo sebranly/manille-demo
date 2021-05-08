@@ -1,16 +1,14 @@
+import { PlayerId } from 'manille/lib/types';
 import * as React from 'react';
-import { Card, CardRank, CardSuit } from 'manille/lib/types';
-import { CARDS_PER_PLAYER, NUMBER_PLAYERS } from '../constants';
-import { generateDeck } from 'manille/lib/cards';
-import { PlayingDeck } from './PlayingDeck';
+import { NUMBER_PLAYERS } from '../constants';
 import { getPlayerSuffix } from '../utils';
 
 export interface PlayersNamesProps {
   className?: string;
   onClickButton: () => void;
-  onChange: (index: number, value: string) => void;
-  onChangeBotId: (index: 0 | 1 | 2 | 3) => void;
-  botPlayerId: 0 | 1 | 2 | 3;
+  onChange: (index: PlayerId, value: string) => void;
+  onChangeBotId: (index: PlayerId) => void;
+  botPlayerId: PlayerId;
   names: string[];
 }
 
@@ -20,10 +18,10 @@ const PlayersNames: React.FC<PlayersNamesProps> = (props) => {
   if (names.length !== NUMBER_PLAYERS) return null;
 
   // TODO: loop for 4
-  const allIds: (0 | 1 | 2 | 3)[] = [0, 1, 2, 3];
+  const allIds: PlayerId[] = [0, 1, 2, 3];
   return (
     <div className="demo-center">
-      {allIds.map((id: 0 | 1 | 2 | 3) => {
+      {allIds.map((id: PlayerId) => {
         const isBot = botPlayerId === id;
 
         return (
@@ -37,8 +35,8 @@ const PlayersNames: React.FC<PlayersNamesProps> = (props) => {
             <input
               className="demo-margin-left"
               type="radio"
-              value="0"
-              name="gender"
+              value={`${id}`}
+              name=""
               checked={isBot}
               onChange={() => onChangeBotId(id)}
             />{' '}

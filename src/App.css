@@ -67,6 +67,27 @@ body {
   flex: 3;
 }
 
+.demo-half-width {
+  max-width: 50%;
+}
+
+.demo-current-player {
+  color: white;
+  text-decoration: underline;
+}
+
+.margin-auto {
+  margin: auto;
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
 .demo-cards {
   border: 1px solid transparent;
 }
@@ -102,6 +123,11 @@ h1 {
   margin-top: 5px;
 }
 
+.demo-margin-x {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 .demo-card-player-right {
   border-right: 3px solid red;
 }
@@ -112,6 +138,27 @@ h1 {
 
 .flex-center {
   align-self: center;
+}
+
+.demo-suit-no-trump-suit {
+  border: 3px solid brown;
+  background-color: lightyellow;
+}
+
+.demo-suit-hearts,
+.demo-suit-diamonds {
+  border: 3px solid red;
+  background-color: pink;
+}
+
+.demo-padding-left {
+  padding-left: 5px;
+}
+
+.demo-suit-clubs,
+.demo-suit-spades {
+  border: 3px solid black;
+  background-color: lightgray;
 }
 
 .demo-player-right {

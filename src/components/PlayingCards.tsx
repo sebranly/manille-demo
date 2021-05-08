@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card } from 'manille/lib/types';
+import { Card, PlayerId } from 'manille/lib/types';
 import { PlayingCard } from './PlayingCard';
 import { getCardLabel } from '../utils';
 
@@ -7,7 +7,7 @@ export interface PlayingCardsProps {
   className?: string;
   cards: (Card | undefined)[];
   displayMode?: 2 | 4 | 8;
-  playerId: 0 | 1 | 2 | 3;
+  playerId: PlayerId;
 }
 
 const PlayingCards: React.FC<PlayingCardsProps> = (props) => {
