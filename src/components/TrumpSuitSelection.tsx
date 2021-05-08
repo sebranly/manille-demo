@@ -38,11 +38,14 @@ const TrumpSuitSelection: React.FC<TrumpSuitSelectionProps> = (props) => {
     <>
       <div className="demo-container demo-half-width margin-auto">
         <div className="flex-one margin-auto text-align-left">
+          <h2>Starting player</h2>
           {allIds.map((id: PlayerId) => {
             return (
-              <div className="demo-margin-y demo-margin-x min" key={id}>
+              <div
+                className={`demo-padding-left demo-margin-y demo-margin-x min demo-player-${getPlayerSuffix(id)}`}
+                key={id}
+              >
                 <input
-                  className={`demo-player-${getPlayerSuffix(id)}`}
                   type="radio"
                   checked={currentPlayerId === id}
                   value="0"
@@ -55,9 +58,11 @@ const TrumpSuitSelection: React.FC<TrumpSuitSelectionProps> = (props) => {
           })}
         </div>
         <div className="flex-one margin-auto text-align-left">
+          <h2>Trump suit</h2>
           {allSuits.map((suit: CardSuit | false) => {
+            const labelSuit = suit || 'no-trump-suit';
             return (
-              <div className="demo-margin-y demo-margin-x" key={suit || 'envoiture'}>
+              <div className={`demo-padding-left demo-margin-y demo-margin-x demo-suit-${labelSuit}`} key={labelSuit}>
                 <input
                   type="radio"
                   checked={trumpSuit === suit}

@@ -140,6 +140,27 @@ h1 {
   align-self: center;
 }
 
+.demo-suit-no-trump-suit {
+  border: 3px solid brown;
+  background-color: lightyellow;
+}
+
+.demo-suit-hearts,
+.demo-suit-diamonds {
+  border: 3px solid red;
+  background-color: pink;
+}
+
+.demo-padding-left {
+  padding-left: 5px;
+}
+
+.demo-suit-clubs,
+.demo-suit-spades {
+  border: 3px solid black;
+  background-color: lightgray;
+}
+
 .demo-player-right {
   border: 3px solid red;
   background-color: pink;

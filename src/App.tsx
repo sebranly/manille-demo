@@ -37,7 +37,7 @@ const App = () => {
   const [startingPlayerId, setStartingPlayerId] = React.useState<PlayerId>(0);
   const [allPlayedCards, setAllPlayedCards] = React.useState<Card[]>([]);
   const [playedCards, setPlayedCards] = React.useState<Card[]>([]);
-  const [logs, setLogs] = React.useState<string[]>(['Beginning of game']);
+  const [logs, setLogs] = React.useState<string[]>(['DEBUG LOGS', 'Beginning of game']);
   const [infoSuitHighest, setInfoSuitHighest] = React.useState<InfoSuitHighest[]>(initializeInfoSuitHighest());
   const [infoCards, setInfoCards] = React.useState<Card[][]>(initializeInfoCards(botCards, botPlayerId));
 
@@ -122,18 +122,19 @@ const App = () => {
 
       if (!hasPlayedCard && canPlayCard) {
         const newPlayerPlayedCards = clone(playerPlayedCards);
-        const card = { rank: cardRank, suit: cardSuit };
         newPlayerPlayedCards[currentPlayerId].push(card);
         setPlayerPlayedCards(newPlayerPlayedCards);
 
-        const newAllPlayedCards = [...allPlayedCards, card];
         const newRemainingCards = clone(remainingCards);
         newRemainingCards[currentPlayerId]--;
         setRemainingCards(newRemainingCards);
+
+        const newAllPlayedCards = [...allPlayedCards, card];
         setAllPlayedCards(newAllPlayedCards);
 
         const newPlayedCards = [...playedCards, card];
         const newInfoSuitHighest = updateInfoSuitHighest(infoSuitHighest, newPlayedCards, startingPlayerId, trumpSuit);
+        setInfoSuitHighest(newInfoSuitHighest);
 
         // TODO: length should be calculated through manille
         const newInfoCards = updateInfoCards(
@@ -144,7 +145,6 @@ const App = () => {
           newRemainingCards
         );
 
-        setInfoSuitHighest(newInfoSuitHighest);
         setInfoCards(newInfoCards);
 
         if (newPlayedCards.length === NUMBER_PLAYERS) {
@@ -156,6 +156,7 @@ const App = () => {
             const points = getCardsPoints(newPlayedCards);
             setLogs([...logs, `${getPlayerName(names, leaderId, botPlayerId)} scored ${points} points`]);
 
+            // TODO: find a way to show last card being played for a few ms?
             setPlayedCards([]);
           }
         } else {
@@ -175,10 +176,12 @@ const App = () => {
   };
 
   const onChangeBotId = (index: PlayerId) => setBotPlayerId(index);
+  // TODO: change name to starting
   const onChangeCurrentPlayerId = (index: PlayerId) => {
     setCurrentPlayerId(index);
     setStartingPlayerId(index);
   };
+
   const onChangeTrumpSuit = (suit: CardSuit | false) => setTrumpSuit(suit);
 
   const onClickPlayersNamesNextStep = () => setStep(Step.CardsSelection);
